@@ -1,20 +1,20 @@
 # Java Learning Theory
 
-This repository stores a standalone, scenario-based **Java Core mentor–student course**. Mentor persona: developer with 5 years of experience. Student persona: college Java graduate, no professional experience.
+**Standalone Java Core mentor–student course** based on your lecture transcript. Mentor: Java developer with five years of experience; student: new college Java graduate. Use Java 21 and IntelliJ IDEA.
 
-**Current course (12 batches, based on the user-supplied transcript):**
+**One active course: 12 batches.** The older, shorter 11-batch lesson and its tracker section were removed at your request. The original source-transcript excerpt is retained under `sessions/session-01/source/` because it's reference material, not an old lesson.
 
-- **[Live 12-batch study tracker](TRACKER.md)** — see the new course status at the top; older 11-batch history remains below.
-- **[Canonical progress state](LEARNING_STATE.json)** — read this first in a branched chat.
-- **[Mentor anti-repeat and exact-next-task checklist](MENTOR_QUEUE.md)**.
-- **[12-batch transcript roadmap](ROADMAP_12_BATCHES.md)**.
-- **[Batch 01 — FULL EXACT ORIGINAL RESPONSE](sessions/session-01/2026-mentor-batches/batch-01-exact.txt)** — original wording, diagrams, code examples, interview answer, interactive checkpoint source, and status as authored.
-- Existing earlier lesson and transcript files under `sessions/session-01/` remain untouched.
+- [Study tracker](TRACKER.md) — current position and exact source links
+- [Canonical learning state](LEARNING_STATE.json) — read FIRST in a new conversation
+- [Mentor's anti-repeat checklist](MENTOR_QUEUE.md) — read SECOND
+- [12-batch roadmap](ROADMAP_12_BATCHES.md) — read THIRD
+- [Batch 01 — exact authored conversation](sessions/session-01/2026-mentor-batches/batch-01-exact.txt) — **✅ Understood**
+- [Batch 02 — exact authored conversation](sessions/session-01/2026-mentor-batches/batch-02-exact.txt) — **🟠 Presented, awaiting understanding**
 
-**Current course status:** Batch 01 authored, **awaiting user confirmation**; 0/12 confirmed. Batch 02 (Classes and Objects) is next **after** "Understood".
+**Progress: 1 / 12 batches confirmed understood; 2 / 12 batches authored.** Next after confirming Batch 02: Batch 03, Constructors and Constructor Overloading.
 
-## Continuation in a branch/new chat
+## Branch continuation phrase
 
-> Read `LEARNING_STATE.json`, `MENTOR_QUEUE.md` and `ROADMAP_12_BATCHES.md` in `sabareeshrao/Java-Learning-Theory`. Preserve full original batch texts without rewriting. Continue from the active batch, and only mark it understood when I explicitly say "Understood".
+> Continue the standalone course in `sabareeshrao/Java-Learning-Theory`. Read `LEARNING_STATE.json`, `MENTOR_QUEUE.md`, and `ROADMAP_12_BATCHES.md`. Resume the current batch; don't repeat covered topics or rewrite exact original conversations. Only advance when I explicitly say "Understood."
 
-Note: this is **not** the separate geospatial 1,000-question experience project. The old `TRACKER.md` and shorter 11-batch course already existed in the repository and have been preserved as history.
+All transcript-driven lessons are illustrative, self-contained and entirely independent of other projects. Full chat-specific UI source is preserved literally in the `.txt` archives; GitHub cannot execute those interactive UI elements.
