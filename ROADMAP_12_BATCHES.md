@@ -8,8 +8,8 @@
 
 | Batch | Transcript window | Title | Core interview question | Initial state |
 |---|---|---|---|---|
-| **01** | 00:00–04:05 | Understanding Java and the Development Environment | Why do we need a JDK and an IDE? Understand JDK/JRE/JVM, compilation, Java 21 and IntelliJ. | **Presented, awaiting user's "Understood"** |
-| 02 | 04:06–08:15 | Classes and Objects | What exactly happens when we create an Employee object? Class, fields, methods, objects, `new`. | Queued |
+| **01** | 00:00–04:05 | Understanding Java and the Development Environment | Why do we need a JDK and an IDE? Understand JDK/JRE/JVM, compilation, Java 21 and IntelliJ. | **✅ Understood — 2026-10-04** |
+| 02 | 04:06–08:15 | Classes and Objects | What exactly happens when we create an Employee object? Class, fields, methods, objects, `new`. | **🟠 Presented — awaiting understanding** |
 | 03 | 08:16–13:28 | Constructors and Constructor Overloading | Why does Java need constructors and can one class have multiple constructors? Implicit no-arg constructor rules. | Queued |
 | 04 | 13:29–17:37 | The `this` Keyword and Java Memory | Which object are we modifying? `this`, references, stack and heap, per-object state. | Queued |
 | 05 | 17:38–24:55 | Public Classes vs Public Constructors | Why can a class be visible while its constructor is inaccessible? Package boundaries. | Queued |
@@ -35,8 +35,8 @@ The transcript is unedited historical source, not necessarily technically correc
 
 ## Continuation
 
-Read [the current course state](LEARNING_STATE.json) and [mentor checklist](MENTOR_QUEUE.md) before generating the next batch. **Never skip a batch marked awaiting understanding simply because an older independent 11-batch tracker marks its own Batch 01 complete.**
+Read [the current course state](LEARNING_STATE.json) and [mentor checklist](MENTOR_QUEUE.md) before generating the next batch. **Follow only this 12-batch roadmap. The obsolete 11-batch course lesson and tracker have been removed at the user's request.**
 
 Current exact Batch 01: [full original, unrewritten](sessions/session-01/2026-mentor-batches/batch-01-exact.txt).
 
-**Counts:** 1 / 12 batches authored; 0 / 12 confirmed understood in THIS course (until the user explicitly says "Understood"). This is not the 1,000-question experience course.
+**Counts:** 2 / 12 batches authored; **1 / 12 confirmed understood** after explicit user confirmation for Batch 01 on 2026-10-04. Batch 02 is presented but not confirmed. This is not the 1,000-question experience course.
