@@ -14,17 +14,19 @@
   },
   "totalPlannedBatches": 12,
   "presentedBatchIds": [
-    "01"
+    "01",
+    "02"
   ],
   "confirmedUnderstoodBatchIds": [
     "01"
   ],
   "activeBatchId": "02",
-  "activeBatchStatus": "queued_being_authored",
+  "activeBatchStatus": "presented_awaiting_understood",
   "nextBatchAfterConfirmation": "03",
   "nextBatchTopic": "Constructors and Constructor Overloading",
   "exactOriginals": {
-    "01": "sessions/session-01/2026-mentor-batches/batch-01-exact.txt"
+    "01": "sessions/session-01/2026-mentor-batches/batch-01-exact.txt",
+    "02": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt"
   },
   "previousLegacyTrack": {
     "present": false,
@@ -54,11 +56,27 @@
       "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-01-exact.txt",
       "confirmedOn": "2026-10-04",
       "evidence": "User explicitly said 'Understood batch 1' on 2026-10-04; knowledge tested via self-report, not externally assessed."
+    },
+    "02": {
+      "title": "Classes and Objects",
+      "status": "presented_awaiting_understood",
+      "transcriptWindow": "04:06–08:15",
+      "topics": [
+        "class and object difference",
+        "Employee class fields and methods",
+        "new and object creation",
+        "two separate objects maintain independent instance state",
+        "calling instance methods",
+        "null reference and NullPointerException",
+        "default instance-field values"
+      ],
+      "hasTestYourUnderstanding": true,
+      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt"
     }
   },
-  "nextAction": "Batch 01 explicitly understood. Produce detailed Batch 02 Classes and Objects, archive its exact assistant response, update authored/presented status to 2 / 12; wait for user to say Understood Batch 02 before advancing to Batch 03. No 11-batch parallel track.",
+  "nextAction": "Wait for explicit Understood Batch 02. Then mark it understood and write full Batch 03 — Constructors and Constructor Overloading; preserve new answer verbatim in new archive, update tracker and anti-repeat queue. No legacy 11-batch track.",
   "progress": {
-    "authored": 1,
+    "authored": 2,
     "understood": 1,
     "planned": 12
   },
