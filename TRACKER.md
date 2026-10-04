@@ -1,3 +1,25 @@
+# Current Course — 12-Batch Java Core Mentor–Student Series
+
+**This is the active course from the new conversation.** The existing 11-batch tracker beneath this section is historical and contains a **different, shorter Batch 01**; don't use its ✅ status to infer the new full lesson was confirmed understood.
+
+**Current position:** Session 1 → **Batch 01 authored/presented, waiting for the user's "Understood"**.  
+**Progress:** **1 / 12 authored; 0 / 12 confirmed understood**.  
+**Next AFTER confirmation:** **Batch 02 — Classes and Objects** (transcript 04:06–08:15).
+
+| Batch | Topic | Exact text | Current course status |
+|---|---|---|---|
+| 01 | Understanding Java and the Development Environment | [Full original, unrewritten](sessions/session-01/2026-mentor-batches/batch-01-exact.txt) | 🟠 Presented, awaiting confirmation |
+| 02 | Classes and Objects | Not authored | ⬜ Queued |
+| 03–12 | See [12-batch roadmap](ROADMAP_12_BATCHES.md) | Not authored | ⬜ Queued |
+
+**Required read before continuing in any chat:** [LEARNING_STATE.json](LEARNING_STATE.json) → [MENTOR_QUEUE.md](MENTOR_QUEUE.md) → [12-batch roadmap](ROADMAP_12_BATCHES.md) → latest verbatim lesson.
+
+**Explicit completion rule:** Only mark Batch 01 understood after the user confirms **"Understood"**. Then update the state, mentor checklist, and this tracker; write Batch 02 in the favorite detailed 5-year-mentor / college-graduate-student conversation style, complete with a Test Your Understanding section. Preserve each full authored conversation **exactly**; update progress in separate files, never rewrite archived dialogue.
+
+---
+
+## Previous 11-Batch Tracker (preserved historical content)
+
 # Java Learning Theory Tracker
 
 ## Session 1 — Core Java Foundations
