@@ -1,0 +1,760 @@
+# 🐼 Batch 01 — Your First Day Working with Java
+
+<text color="secondary" size="sm" weight="medium">JAVA CORE · LECTURE 01 · BATCH 01 OF 12</text>
+
+**Today's interview question: What is Java, what is the difference between JDK, JRE, and JVM, and how do developers set up their Java development environment?**
+
+**Characters:** 🐯 Mentor — a Java developer with five years of industry experience. 🐼 Student — recently finished Java in college but has never worked on a software development team.
+
+**Our goal today:** Understand what happens between writing Java code and seeing the program run. We'll use Java 21 and IntelliJ IDEA.
+
+---
+
+## 🐯 Step 1 — Welcome to your first development task
+
+**Mentor:** Good morning! Welcome to our development team.
+
+Before we start building applications, I want to understand something.
+
+Have you written Java programs before?
+
+**Student:** Yes. In college, I learned classes, objects, inheritance, and a little bit of collections.
+
+**Mentor:** Great! How did you execute your Java programs?
+
+**Student:** I used an IDE. I wrote the program, clicked Run, and got the output.
+
+**Mentor:** Excellent. Let me ask you another question.
+
+When you clicked Run, did you ever wonder what was actually happening behind that button?
+
+**Student:** Not really. I thought the IDE just executes the Java code.
+
+**Mentor:** That's what many beginners think!
+
+But the IDE is not the thing that actually understands and executes Java bytecode.
+
+Let's investigate what happens behind the scenes.
+
+Imagine you're given this program:
+
+```java id="x8h9xq"
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("Hello, Developer!");
+    }
+}
+```
+
+**Mentor:** What output do you expect?
+
+**Student:** `Hello, Developer!`
+
+**Mentor:** Correct. Now imagine I give you a brand-new laptop.
+
+You install IntelliJ IDEA, paste this program, and click Run.
+
+But the IDE displays:
+
+```text id="pe3s99"
+No JDK configured
+```
+
+**Student:** Wait! I installed IntelliJ. Why can't it run Java?
+
+**Mentor:** Excellent question.
+
+That is our first problem.
+
+---
+
+## 🦊 Step 2 — Why isn't IntelliJ enough?
+
+**Mentor:** Think about IntelliJ as your development workspace.
+
+It provides features such as:
+
+- A code editor.
+- Syntax highlighting.
+- Suggestions while writing code.
+- Debugging tools.
+- A Run button.
+
+But IntelliJ needs a Java development environment to compile and run your Java application.
+
+**Student:** What is that development environment?
+
+**Mentor:** It's called the **JDK — Java Development Kit**.
+
+Think of it this way:
+
+```text id="w5aj8p"
+IntelliJ IDEA
+    |
+    | You write Java code
+    |
+    ↓
+JDK
+    |
+    | Provides tools to compile Java
+    |
+    ↓
+JVM
+    |
+    | Executes Java bytecode
+    |
+    ↓
+Program Output
+```
+
+**Student:** So IntelliJ and JDK are different things?
+
+**Mentor:** Exactly!
+
+IntelliJ is the tool we use to develop applications.
+
+The JDK provides the Java compiler, runtime, and other development tools.
+
+You can even compile and run Java without IntelliJ.
+
+**Student:** Really? How?
+
+**Mentor:** We'll try that shortly.
+
+But first, let's understand why the JDK is necessary.
+
+---
+
+## 🐨 Step 3 — Your computer doesn't understand Java directly
+
+**Mentor:** Look at this Java statement.
+
+```java id="rpi9uf"
+System.out.println("Hello");
+```
+
+Can your computer's CPU directly understand this statement?
+
+**Student:** I guess not. The CPU understands machine instructions.
+
+**Mentor:** Exactly.
+
+Your CPU doesn't directly execute Java source code.
+
+We need to translate the program into something that can eventually be executed by the machine.
+
+**Student:** So Java uses a compiler?
+
+**Mentor:** Correct!
+
+The JDK includes a Java compiler called `javac`.
+
+Suppose your Java program is saved as:
+
+```text id="00tc0y"
+Main.java
+```
+
+You can use the compiler:
+
+```bash id="vl5zi0"
+javac Main.java
+```
+
+The compiler produces another file:
+
+```text id="8zk8dr"
+Main.class
+```
+
+**Student:** What's inside `Main.class`?
+
+**Mentor:** Java bytecode.
+
+That is an intermediate instruction format used by the JVM.
+
+```text id="gmz2x3"
+Main.java
+    |
+    | Java source code
+    ↓
+  javac
+    |
+    | Compilation
+    ↓
+Main.class
+    |
+    | Java bytecode
+    ↓
+   JVM
+    |
+    | Executes the program
+    ↓
+  Output
+```
+
+**Student:** So `javac` doesn't directly produce Windows machine instructions?
+
+**Mentor:** Correct. It produces Java bytecode.
+
+The JVM executes that bytecode using mechanisms such as interpretation and Just-In-Time compilation.
+
+We'll investigate the JVM execution engine in a later batch.
+
+For now, remember one important distinction.
+
+**The Java compiler produces bytecode. The JVM executes bytecode.**
+
+---
+
+## 🐯 Step 4 — Why is Java called platform-independent?
+
+**Student:** I've heard that Java is platform-independent. Is that related to bytecode?
+
+**Mentor:** Exactly!
+
+Imagine we develop a Java application on Windows.
+
+Our compiler produces:
+
+```text id="30w5du"
+Main.class
+```
+
+Now we want to run that same application on Linux.
+
+Do we necessarily need to rewrite the Java source code?
+
+**Student:** No?
+
+**Mentor:** Correct, provided the application uses compatible Java APIs and platform-independent dependencies.
+
+A compatible JVM can execute the same Java bytecode on different operating systems.
+
+<box border radius="lg" padding={3} gap={2} align="center">
+  <box background="surface-secondary" radius="md" width="100%" padding={3} align="center" gap={1}>
+    <icon name="file-code" size="xl" color="#38bdf8"/>
+    **Main.class**
+    <text color="secondary" size="xs">Compiled Java bytecode</text>
+  </box>
+  <svg viewBox="0 0 330 55" width="100%" height="55px" stroke="currentColor" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M165 0 V19 H55 V45 M165 19 V45 M165 19 H275 V45" opacity=".7"/>
+    {#each [55,165,275] as x}
+      <path d={`M${x-5} 39 L${x} 46 L${x+5} 39`}/>
+    {/each}
+  </svg>
+  <grid columns={3} gap={2}>
+    {#each [{name:"Windows JVM",icon:"monitor",os:"Windows"},{name:"Linux JVM",icon:"terminal",os:"Linux"},{name:"macOS JVM",icon:"laptop",os:"macOS"}] as item}
+      <grid-item>
+        <box border radius="md" align="center" padding={2} gap={1} height="100%">
+          <icon name={item.icon} color="#38bdf8" size="lg"/>
+          <text weight="medium" size="sm" textAlign="center">{item.name}</text>
+          <icon name="arrow-down" color="secondary"/>
+          <text color="secondary" size="xs" textAlign="center">{item.os}</text>
+        </box>
+      </grid-item>
+    {/each}
+  </grid>
+</box>
+
+**Student:** So the JVM is different for each operating system?
+
+**Mentor:** Yes. JVM implementations are built for particular operating systems and processor architectures.
+
+But each compatible implementation follows the Java Virtual Machine specification.
+
+That's one reason Java became popular for enterprise development.
+
+**Student:** Is this what people mean by "Write Once, Run Anywhere"?
+
+**Mentor:** Exactly. Although applications that depend on operating-system-specific native libraries or features might need additional work.
+
+---
+
+## 🦊 Step 5 — JDK vs JRE vs JVM
+
+**Student:** I'm getting confused. We have three terms now: JDK, JRE, and JVM.
+
+Are they all different?
+
+**Mentor:** Yes. Let's understand them using one simple situation.
+
+Imagine you want to create a Java application.
+
+You need something that can compile your source code.
+
+That is why you need a JDK.
+
+Now imagine someone only wants to run an already compiled application.
+
+They need a suitable Java runtime environment.
+
+Historically, that runtime was commonly distributed separately as the JRE.
+
+And the JVM is the actual virtual machine within the runtime.
+
+Here's a simplified picture:
+
+<box border radius="lg" padding={3} gap={2}>
+  <box border={{size:2,color:"#38bdf8"}} radius="lg" padding={3} gap={2}>
+    <row align="center" gap={2}>
+      <icon name="package" color="#38bdf8" size="lg"/>
+      **JDK — Java Development Kit**
+    </row>
+    <text color="secondary" size="sm">Tools needed to develop Java applications</text>
+    <box background="surface-secondary" padding={2} radius="md" gap={1}>
+      <text weight="medium" size="sm">Development tools</text>
+      <text size="sm" color="secondary">javac · javadoc · jshell · other tools</text>
+    </box>
+    <box border radius="md" padding={3} gap={2}>
+      <row align="center" gap={2}>
+        <icon name="play-circle" color="#38bdf8"/>
+        **Java Runtime Environment**
+      </row>
+      <text color="secondary" size="sm">Libraries and runtime components</text>
+      <box background="surface-secondary" padding={3} radius="md" align="center" gap={1}>
+        <icon name="cpu" color="#38bdf8" size="lg"/>
+        **JVM — Java Virtual Machine**
+        <text size="sm" color="secondary">Executes Java bytecode</text>
+      </box>
+    </box>
+  </box>
+  <caption>Conceptual relationship. Modern JDK distributions include runtime components, but a separate JRE download is no longer provided by every vendor.</caption>
+</box>
+
+**Student:** Can you explain each one in one sentence?
+
+**Mentor:** Sure.
+
+| Component | Simple meaning |
+|---|---|
+| **JDK** | Provides tools to develop, compile, and run Java |
+| **JRE** | Provides the environment needed to run Java applications |
+| **JVM** | Executes Java bytecode |
+
+**Student:** So if I'm writing Java applications in IntelliJ, I need a JDK?
+
+**Mentor:** Correct.
+
+And when you install a modern JDK, it already includes the runtime components necessary to execute Java applications.
+
+---
+
+## 🐨 Step 6 — Why are we using Java 21?
+
+**Student:** In my lecture, they mentioned Java 8 and Java 21.
+
+Why are we starting with Java 21 instead of Java 8?
+
+**Mentor:** Good question!
+
+Java has multiple versions.
+
+Over time, the language and platform gain new features and improvements.
+
+For example:
+
+| Java version | Examples of significant features |
+|---|---|
+| Java 8 | Lambda expressions, Stream API |
+| Java 11 | Standard HTTP Client API |
+| Java 17 | Sealed classes |
+| Java 21 | Virtual threads, sequenced collections |
+
+Java 21 is a Long-Term Support (LTS) release.
+
+**Student:** Does that mean Java 8 is useless now?
+
+**Mentor:** Absolutely not!
+
+Java 8 is older, but its core concepts remain important, and existing enterprise applications may still use it.
+
+For example, we still need to understand classes, objects, inheritance, exceptions, collections, and the Stream API.
+
+**Student:** So learning Java 21 doesn't mean skipping Java fundamentals?
+
+**Mentor:** Exactly!
+
+Think of it like learning to drive a modern car.
+
+You still need to understand steering, braking, and traffic rules.
+
+Additional features don't eliminate the fundamentals.
+
+**Student:** What are virtual threads?
+
+**Mentor:** They're a Java 21 feature that can help applications handle many concurrent tasks efficiently, especially when tasks spend time waiting on I/O.
+
+But we won't study them today.
+
+First, you need to understand ordinary Java threads.
+
+Then we can discover what problem virtual threads were designed to solve.
+
+**Student:** That makes sense. So we're using Java 21 as our learning environment, while covering Java fundamentals and important features from earlier versions.
+
+**Mentor:** Exactly.
+
+---
+
+## 🐯 Step 7 — Setting up Java in IntelliJ IDEA
+
+**Mentor:** Now imagine you've received your development laptop.
+
+We're going to create your first project.
+
+**Student:** What should I install?
+
+**Mentor:** For this exercise, we need IntelliJ IDEA and JDK 21.
+
+IntelliJ IDEA has free Java development functionality. Some additional features require a paid subscription or an eligible license.
+
+You don't need a paid license just to learn basic Java.
+
+**Student:** Okay. How do we start?
+
+**Mentor:** Open IntelliJ IDEA and choose **New Project**.
+
+For this exercise, configure a simple Java project.
+
+<box border radius="lg" padding={3} gap={2}>
+  <row align="center" gap={2}>
+    <icon name="folder-plus" color="#38bdf8" size="lg"/>
+    **New Project — Example configuration**
+  </row>
+  <divider color="subtle"/>
+  <row align="center" justify="between">
+    <text color="secondary" size="sm">Project name</text>
+    **JavaBasics**
+  </row>
+  <row align="center" justify="between">
+    <text color="secondary" size="sm">Language</text>
+    **Java**
+  </row>
+  <row align="center" justify="between">
+    <text color="secondary" size="sm">Build system</text>
+    **IntelliJ**
+  </row>
+  <row align="center" justify="between">
+    <text color="secondary" size="sm">JDK</text>
+    **Java 21**
+  </row>
+  <divider color="subtle"/>
+  <text color="secondary" size="xs">The exact New Project screen can vary by IntelliJ version. We'll introduce Maven separately when it becomes relevant.</text>
+</box>
+
+**Student:** What if Java 21 doesn't appear in the JDK dropdown?
+
+**Mentor:** You can use IntelliJ's JDK download option, if available, or select an existing JDK 21 installation.
+
+A JDK vendor might be Eclipse Temurin, Microsoft, Oracle, or another compatible distribution.
+
+The important thing for today's exercise is that the project has a valid Java 21 JDK configured.
+
+**Student:** Once the project is created, where do I write Java code?
+
+**Mentor:** Create a Java class named `Main` under your source directory.
+
+The project might look like this:
+
+```text id="t5mfrs"
+JavaBasics/
+    |
+    └── src/
+         |
+         └── Main.java
+```
+
+Inside `Main.java`, type:
+
+```java id="9z79jt"
+public class Main {
+
+    public static void main(String[] args) {
+
+        System.out.println("Hello, Developer!");
+
+    }
+}
+```
+
+**Student:** And I click the green Run icon next to `main()`?
+
+**Mentor:** Correct!
+
+You should see:
+
+```text id="kcsdln"
+Hello, Developer!
+
+Process finished with exit code 0
+```
+
+**Student:** What does exit code zero mean?
+
+**Mentor:** It generally indicates that the process completed successfully.
+
+But there's another important question.
+
+What did IntelliJ actually do when you clicked Run?
+
+---
+
+## 🦊 Step 8 — What happens behind the Run button?
+
+**Mentor:** Let me show you the simplified process.
+
+<box border radius="lg" padding={3} gap={1} align="center">
+  {#each [{name:"Main.java",desc:"You write Java source code",ic:"file-code"},{name:"Java Compiler",desc:"javac compiles source code",ic:"code-2"},{name:"Main.class",desc:"Compiled bytecode",ic:"file-check"},{name:"JVM",desc:"Loads and executes bytecode",ic:"cpu"},{name:"Console",desc:"Prints Hello, Developer!",ic:"terminal"}] as item,i}
+    <box background="surface-secondary" padding={3} radius="md" width="100%">
+      <row align="center" gap={3}>
+        <icon name={item.ic} color="#38bdf8" size="lg"/>
+        <box flex={1} gap="2px">
+          **{item.name}**
+          <text color="secondary" size="sm">{item.desc}</text>
+        </box>
+      </row>
+    </box>
+    {#if i<4}
+      <icon name="arrow-down" color="secondary"/>
+    {/if}
+  {/each}
+</box>
+
+**Student:** So IntelliJ is coordinating these steps for me?
+
+**Mentor:** Exactly. For this simple project, it invokes the necessary development tools and launches the program.
+
+We should also understand how to run the same program without relying on the IDE.
+
+**Student:** Can we do that now?
+
+**Mentor:** Sure!
+
+Open the terminal in the directory containing `Main.java`.
+
+First, check the installed Java runtime:
+
+```bash id="rwk5sd"
+java -version
+```
+
+Then check the compiler:
+
+```bash id="u9lrd6"
+javac -version
+```
+
+For this exercise, both should indicate a Java 21 installation.
+
+Compile the program:
+
+```bash id="jadt2q"
+javac Main.java
+```
+
+Run it:
+
+```bash id="cm5xfk"
+java Main
+```
+
+Expected output:
+
+```text id="1ux880"
+Hello, Developer!
+```
+
+**Student:** Why do we write `java Main` instead of `java Main.class`?
+
+**Mentor:** In this mode, the `java` launcher expects the class name containing the entry point, not the filename with the `.class` extension.
+
+**Student:** So even without IntelliJ, I can compile and run Java?
+
+**Mentor:** Exactly!
+
+That's why I wanted you to understand the difference between the IDE, compiler, and JVM.
+
+---
+
+## 🦁 Step 9 — Your first environment-related failure
+
+**Mentor:** Now imagine you write your program using JDK 21.
+
+You compile it successfully.
+
+Then someone tries to run the compiled class using a Java 8 runtime.
+
+What could happen?
+
+**Student:** Maybe it won't work?
+
+**Mentor:** Correct.
+
+You may see an error resembling:
+
+```text id="hw1n0q"
+UnsupportedClassVersionError
+```
+
+**Student:** What does that mean?
+
+**Mentor:** The runtime may be too old to understand the version of the class file produced by the compiler.
+
+For example:
+
+```text id="pgr7zm"
+Java 21 compiler
+       ↓
+  Main.class
+       ↓
+Java 8 runtime
+       ↓
+Cannot load newer class-file version
+```
+
+**Student:** So having Java installed isn't enough. The version also matters?
+
+**Mentor:** Exactly!
+
+This is why developers check the Java version when setting up or troubleshooting an application.
+
+You might have multiple JDKs installed, with your IDE configured to use one and your terminal configured to use another.
+
+**Student:** How do I identify that?
+
+**Mentor:** Start with:
+
+```bash id="y00hyg"
+java -version
+javac -version
+```
+
+Then check which JDK is configured in your IntelliJ project.
+
+On systems with multiple installations, you may also need to inspect the `PATH` environment variable and `JAVA_HOME`.
+
+We will explore those when we study Java environment configuration in more detail.
+
+**Student:** So the problem may not be in my Java code at all?
+
+**Mentor:** Exactly.
+
+Sometimes your code is correct, but your development environment is configured incorrectly.
+
+Learning to distinguish those problems is an important development skill.
+
+---
+
+## 🐨 Step 10 — What did we actually learn today?
+
+**Student:** When we started, I thought installing IntelliJ was enough to run Java.
+
+Now I understand that there are multiple components involved.
+
+**Mentor:** Excellent! Explain them to me.
+
+**Student:** IntelliJ is where I write the code.
+
+The JDK provides the compiler and tools.
+
+The compiler converts `.java` files into `.class` files containing bytecode.
+
+The JVM executes the bytecode.
+
+**Mentor:** Perfect.
+
+**Student:** And Java 21 is the JDK version we're using for our exercises, but we still need to learn the older Java fundamentals.
+
+**Mentor:** Correct!
+
+Today you completed the first step toward understanding how Java applications are developed and executed.
+
+Next, we'll investigate how Java organizes information using classes and objects.
+
+---
+
+## 🎯 Today's interview-ready answer
+
+**Student:** If an interviewer asks, "What is Java, and explain JDK, JRE, and JVM," what should I say?
+
+**Mentor:**
+
+> Java is an object-oriented, class-based programming language widely used for developing backend, enterprise, and other applications.
+>
+> Java source code is typically compiled into bytecode using the Java compiler.
+>
+> The JDK, or Java Development Kit, provides the tools required to develop and compile Java applications, including the `javac` compiler.
+>
+> The JRE, or Java Runtime Environment, consists of the runtime components required to execute Java applications.
+>
+> The JVM, or Java Virtual Machine, executes Java bytecode.
+>
+> Because compatible JVM implementations are available on different operating systems, Java bytecode can run across different platforms.
+>
+> In my development environment, I can use IntelliJ IDEA with a configured JDK to write, compile, debug, and run Java applications.
+
+### 🧠 One-line memory trick
+
+**IntelliJ → Write Java → JDK → `javac` → Bytecode → JVM → Execute → Output**
+
+---
+
+## 📘 Batch 01 — Test Your Understanding
+
+**🐯 Mentor:** Before we move to Batch 02, I want to see whether you understand the development environment.
+
+Imagine I'm your colleague sitting next to you. Answer these questions in your own words. You don't need perfect textbook definitions.
+
+{@body const questions = [
+  "You install IntelliJ IDEA on a new laptop, but your Java project says no JDK is configured. Why can't IntelliJ run the program, and what would you do?",
+  "You write Main.java and click Run. Explain what happens between your Java source code and the output appearing in the console.",
+  "Your program compiles successfully using JDK 21, but another developer tries to run its class file using a Java 8 runtime and gets an UnsupportedClassVersionError. What is the likely problem?"
+]}
+{@body const [answers,setAnswers] = DIL.useState(["","",""])}
+<box border radius="lg" padding={3} gap={3}>
+  <row align="center" gap={2}>
+    <icon name="clipboard-check" color="#38bdf8" size="lg"/>
+    <box gap="2px" flex={1}>
+      **Knowledge Check**
+      <text size="xs" color="secondary">Three questions · Explain what you understood</text>
+    </box>
+  </row>
+  {#each questions as question,i}
+    <box gap={2} key={i}>
+      <row align="start" gap={2}>
+        <box background="surface-secondary" size="28px" align="center" justify="center" radius="md">
+          <text size="sm" weight="medium">{i+1}</text>
+        </box>
+        <box flex={1}>
+          <text weight="medium" size="sm">{question}</text>
+        </box>
+      </row>
+      <textarea rows={3} value={answers[i]} onChange={v=>setAnswers(prev=>prev.map((a,j)=>j===i?v:a))} placeholder="My understanding..."/>
+    </box>
+  {/each}
+  <button block disabled={!answers.every(a=>a.trim())} onClick={()=>GenUI.issueNewTurn("Here are my answers for Batch 01 — Java and the Development Environment:\n\n"+questions.map((q,i)=>`${i+1}. ${q}\nMy answer: ${answers[i]}`).join("\n\n")+"\nPlease review each answer in our simple mentor–student conversation style, explain anything I misunderstood, and do not advance until I confirm my understanding.")}>Check my understanding <icon name="arrow-right" size="sm"/></button>
+</box>
+
+<box border radius="lg" padding={3} gap={2}>
+  <row align="center" justify="between">
+    **Lecture 01 — Progress**
+    <text weight="medium" tabularNums color="#38bdf8">Batch 01 / 12</text>
+  </row>
+  <box height="7px" background="surface-tertiary" radius="full" clip>
+    <box width="8.33%" height="100%" background="#38bdf8" radius="full"/>
+  </box>
+  <row justify="between" align="center">
+    <text size="sm" color="secondary">Batch 01 — Java Development Environment</text>
+    <badge color="secondary">Awaiting understanding</badge>
+  </row>
+  <row justify="between" align="center">
+    <text size="sm" color="secondary">Next: Batch 02 — Classes and Objects</text>
+    <badge>Not started</badge>
+  </row>
+</box>
+
+**🐯 Mentor:** That's Batch 01. Don't worry about memorizing every definition. I want you to understand why we need each component and how they connect.
+
+When you're comfortable with the explanation, say **"Understood"** and we can proceed to Batch 02 — Classes and Objects, where you'll create your first `Employee` objects and discover why two objects from the same class can hold different information.
