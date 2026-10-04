@@ -16,29 +16,31 @@
   "presentedBatchIds": [
     "01"
   ],
-  "confirmedUnderstoodBatchIds": [],
-  "activeBatchId": "01",
-  "activeBatchStatus": "presented_awaiting_understood",
-  "nextBatchAfterConfirmation": "02",
-  "nextBatchTopic": "Classes and Objects",
+  "confirmedUnderstoodBatchIds": [
+    "01"
+  ],
+  "activeBatchId": "02",
+  "activeBatchStatus": "queued_being_authored",
+  "nextBatchAfterConfirmation": "03",
+  "nextBatchTopic": "Constructors and Constructor Overloading",
   "exactOriginals": {
     "01": "sessions/session-01/2026-mentor-batches/batch-01-exact.txt"
   },
   "previousLegacyTrack": {
-    "present": true,
-    "path": "sessions/session-01/batch-01-java-direction-intellij.md",
-    "trackerPath": "TRACKER.md",
-    "description": "Pre-existing 11-batch tracker has a different shorter lesson marked complete; independent of this new 12-batch lesson and not user confirmation for it."
+    "present": false,
+    "deletedLegacyBatchFile": "sessions/session-01/batch-01-java-direction-intellij.md",
+    "legacy11BatchPlan": "removed from TRACKER.md at user request",
+    "originalTranscriptExcerptRetained": "sessions/session-01/source/batch-01-verbatim.txt"
   },
   "sourceNotes": {
     "userTranscript": "Full 61-minute transcript supplied in the conversation; 12-batch topic/time roadmap recorded in ROADMAP_12_BATCHES.md.",
     "legacySourceSnippet": "sessions/session-01/source/batch-01-verbatim.txt; pre-existing first-batch excerpt only"
   },
-  "lastConfirmedBatchId": null,
+  "lastConfirmedBatchId": "01",
   "learningDetails": {
     "01": {
       "title": "Understanding Java and the Development Environment",
-      "status": "presented_awaiting_understood",
+      "status": "understood_self_reported",
       "topics": [
         "JDK/JRE/JVM",
         "IntelliJ IDEA",
@@ -49,13 +51,15 @@
         "UnsupportedClassVersionError"
       ],
       "hasTestYourUnderstanding": true,
-      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-01-exact.txt"
+      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-01-exact.txt",
+      "confirmedOn": "2026-10-04",
+      "evidence": "User explicitly said 'Understood batch 1' on 2026-10-04; knowledge tested via self-report, not externally assessed."
     }
   },
-  "nextAction": "Wait for explicit user 'Understood' on current detailed Batch 01. Then mark Batch 01 confirmed, update MENTOR_QUEUE.md and TRACKER.md, and author Batch 02 — Classes and Objects. Preserve the exact next batch and track its presented status. Do not re-teach Batch 01.",
+  "nextAction": "Batch 01 explicitly understood. Produce detailed Batch 02 Classes and Objects, archive its exact assistant response, update authored/presented status to 2 / 12; wait for user to say Understood Batch 02 before advancing to Batch 03. No 11-batch parallel track.",
   "progress": {
     "authored": 1,
-    "understood": 0,
+    "understood": 1,
     "planned": 12
   },
   "continuityFiles": [
