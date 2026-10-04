@@ -1,0 +1,541 @@
+# 🐼 Batch 02 — Classes and Objects: Your First Employee Program
+
+<text color="secondary" size="sm" weight="medium">JAVA CORE · LECTURE 01 · BATCH 02 OF 12 · TRANSCRIPT 04:06–08:15</text>
+
+**Today's interview question: What is the difference between a class and an object in Java, and what happens when we use `new`?**
+
+**Characters:** 🐯 Mentor — a Java developer with five years of practical experience. 🐼 Student — a college graduate who knows basic Java but has never worked in a development team.
+
+**Our goal:** Build a small program in IntelliJ IDEA. By the end, you should understand why we need a class, why we create objects, and why two objects of the same class can contain different information.
+
+---
+
+## 🐯 Step 1 — Your mentor gives you a problem
+
+**Mentor:** Good morning! Yesterday, you learned how Java code gets compiled and executed.
+
+**Student:** Yes. I understood why we need IntelliJ, the JDK, the compiler, and the JVM.
+
+**Mentor:** Good. Today, imagine we're building a small application for an office.
+
+A manager asks us to keep basic information about employees.
+
+Here are three employees:
+
+| Employee ID | Name | Salary |
+|---|---|---|
+| 101 | Anu | 40,000 |
+| 102 | Ravi | 55,000 |
+| 103 | Meera | 48,000 |
+
+**Student:** Okay. I could create three variables for their names, three for their IDs, and three for their salaries.
+
+**Mentor:** Show me.
+
+```java
+int id1 = 101;
+String name1 = "Anu";
+int salary1 = 40000;
+
+int id2 = 102;
+String name2 = "Ravi";
+int salary2 = 55000;
+```
+
+**Mentor:** That works for two people. What if the office has 500 employees?
+
+**Student:** I'd need hundreds of variables. That would be a mess.
+
+**Mentor:** Exactly. And how would you make sure Anu's salary is always associated with Anu's ID and name?
+
+**Student:** I'd have to be very careful with the variable names.
+
+**Mentor:** Right. We have discovered our first problem: **related information is scattered across separate variables.**
+
+Wouldn't it be nicer if Java let us describe what one employee looks like, and then create as many employees as we need?
+
+**Student:** Yes! Is that where classes come in?
+
+**Mentor:** Exactly.
+
+---
+
+## 🦊 Step 2 — Why do we need a class?
+
+**Mentor:** Think about what every employee record has in common.
+
+**Student:** An ID, a name, and a salary.
+
+**Mentor:** Correct. Instead of declaring them separately for every employee, we'll define their structure once.
+
+Open IntelliJ and create a file named `Employee.java`.
+
+```java
+public class Employee {
+
+    int id;
+    String name;
+    int salary;
+
+}
+```
+
+**Student:** That's it? We created a class?
+
+**Mentor:** Yes. Let's read it slowly.
+
+`public class Employee` declares a class called `Employee`.
+
+Inside it, we have three **fields**:
+
+- `id` stores an employee's number.
+- `name` stores an employee's name.
+- `salary` stores an employee's salary.
+
+**Student:** But where are Anu's actual details?
+
+**Mentor:** They're not there yet! Notice that our class describes **which pieces of information an employee will have**. It doesn't describe one particular employee's values.
+
+**Student:** So the class is like a blueprint?
+
+**Mentor:** Exactly. A blueprint tells you how a house should be built, but a blueprint itself isn't a house.
+
+```text
+            Employee class
+          ┌────────────────┐
+          │ id             │
+          │ name           │
+          │ salary         │
+          └────────────────┘
+                  │
+       Describes the structure
+                  │
+        Actual employee records
+             come next
+```
+
+**Student:** So one class can describe all 500 employees?
+
+**Mentor:** Yes. The class is the shared definition. Individual employees will be represented by **objects**.
+
+---
+
+## 🐨 Step 3 — What exactly is an object?
+
+**Student:** Okay, but how is an object different from the class?
+
+**Mentor:** Let's create Anu's record.
+
+Open `Main.java` and write:
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        Employee e1 = new Employee();
+
+        e1.id = 101;
+        e1.name = "Anu";
+        e1.salary = 40000;
+
+    }
+}
+```
+
+**Student:** I understand the three assignments. But what is this line doing?
+
+```java
+Employee e1 = new Employee();
+```
+
+**Mentor:** Excellent question. Let's split it into pieces.
+
+| Part | Meaning |
+|---|---|
+| `Employee` | The type of object we want to work with |
+| `e1` | A variable that can refer to an `Employee` object |
+| `new` | Requests creation of a new object |
+| `Employee()` | Invokes a constructor for the new object |
+
+**Student:** Hold on. Constructor? We haven't written one.
+
+**Mentor:** Good observation! In this particular class, we haven't declared any constructors. Java supplies an implicit no-argument constructor.
+
+We'll study exactly how constructors initialize objects, and when Java does or does not create a default constructor, in **Batch 03**. For now, focus on the result of this expression: **a new `Employee` object exists.**
+
+**Student:** And `e1` is how we access it?
+
+**Mentor:** Correct.
+
+When you write `e1.name = "Anu";`, you are storing a value in the `name` field of the object referred to by `e1`.
+
+That's the key distinction:
+
+**Class = the definition. Object = one actual instance created using that definition.**
+
+---
+
+## 🐯 Step 4 — Let's create a second employee
+
+**Mentor:** Now the manager asks you to add Ravi.
+
+Do we need another class called `Ravi.java`?
+
+**Student:** No! We already have the `Employee` blueprint.
+
+**Mentor:** Exactly. Create a second object.
+
+```java
+Employee e2 = new Employee();
+
+e2.id = 102;
+e2.name = "Ravi";
+e2.salary = 55000;
+```
+
+**Student:** So `e1` and `e2` both come from the same class.
+
+**Mentor:** Yes. But each `new Employee()` expression creates a distinct object.
+
+<box border radius="lg" padding={3} gap={2} align="center">
+  <box background="surface-secondary" radius="md" padding={3} width="100%" align="center" gap={1}>
+    <icon name="file-code" color="#38bdf8" size="lg"/>
+    **Employee class**
+    <text color="secondary" size="sm">id · name · salary</text>
+  </box>
+  <svg viewBox="0 0 320 44" width="100%" height="44px" stroke="currentColor" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M160 0 V14 H80 V37 M160 14 H240 V37" opacity=".7"/>
+    <path d="M75 31 L80 38 L85 31 M235 31 L240 38 L245 31"/>
+  </svg>
+  <grid columns={2} gap={2}>
+    <grid-item>
+      <box background="surface-secondary" radius="md" padding={3} gap={1} height="100%">
+        <text color="#38bdf8" weight="medium" size="sm">Object e1</text>
+        **Anu**
+        <text color="secondary" size="sm">id: 101</text>
+        <text color="secondary" size="sm">salary: 40000</text>
+      </box>
+    </grid-item>
+    <grid-item>
+      <box background="surface-secondary" radius="md" padding={3} gap={1} height="100%">
+        <text color="#38bdf8" weight="medium" size="sm">Object e2</text>
+        **Ravi**
+        <text color="secondary" size="sm">id: 102</text>
+        <text color="secondary" size="sm">salary: 55000</text>
+      </box>
+    </grid-item>
+  </grid>
+  <caption>One class defines the structure; each newly created object has its own instance-field values.</caption>
+</box>
+
+**Student:** If I change Ravi's salary, will Anu's salary also change?
+
+**Mentor:** Let's test it.
+
+```java
+e2.salary = 60000;
+
+System.out.println(e1.salary);
+System.out.println(e2.salary);
+```
+
+Output:
+
+```text
+40000
+60000
+```
+
+**Student:** Oh! Changing one object's salary doesn't change the other's.
+
+**Mentor:** Correct. They were created separately.
+
+Later, when we discuss the `this` keyword and memory, we'll explore how Java keeps track of the current object and its fields.
+
+For today's batch, remember that **two calls to `new Employee()` create two different instances.**
+
+---
+
+## 🦊 Step 5 — Why put methods inside a class?
+
+**Student:** I see why the class has variables. But my lecturer said a class can contain both variables and methods.
+
+Why would an employee have a method?
+
+**Mentor:** Imagine the manager asks us to display each employee's details.
+
+We could write the same printing statements again and again inside `Main`. But wouldn't it be better if our `Employee` definition included a way to display one employee?
+
+**Student:** So each employee object could use the same method?
+
+**Mentor:** Exactly. Add a method to `Employee.java`:
+
+```java
+void printDetails() {
+    System.out.println(id + " - " + name + " - " + salary);
+}
+```
+
+**Student:** Is `printDetails()` creating a new employee?
+
+**Mentor:** No. It is a **method**: a block of behavior that can run for an existing employee.
+
+Now call it through each object:
+
+```java
+e1.printDetails();
+e2.printDetails();
+```
+
+Output:
+
+```text
+101 - Anu - 40000
+102 - Ravi - 60000
+```
+
+**Student:** That's interesting. It's the same method, but it prints different information.
+
+**Mentor:** Excellent observation!
+
+The behavior is defined once in the class, but when we invoke the instance method through different objects, it works with each object's own fields.
+
+**Student:** So a class groups together related data and the behavior that operates on it.
+
+**Mentor:** Exactly. That's the simple purpose of a class in this example.
+
+---
+
+## 🐨 Step 6 — Let's build and run the complete program
+
+**Mentor:** We have learned several pieces separately. Now let's assemble one complete program in IntelliJ.
+
+Your project will contain two files:
+
+```text
+JavaBasics/
+    └── src/
+         ├── Employee.java
+         └── Main.java
+```
+
+**File 1 — Employee.java**
+
+```java
+public class Employee {
+
+    int id;
+    String name;
+    int salary;
+
+    void printDetails() {
+        System.out.println(id + " - " + name + " - " + salary);
+    }
+}
+```
+
+**File 2 — Main.java**
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        Employee e1 = new Employee();
+        e1.id = 101;
+        e1.name = "Anu";
+        e1.salary = 40000;
+
+        Employee e2 = new Employee();
+        e2.id = 102;
+        e2.name = "Ravi";
+        e2.salary = 55000;
+
+        e1.printDetails();
+        e2.printDetails();
+    }
+}
+```
+
+**Student:** We use one `Employee.java` file to define what employees have, and `Main.java` to create the actual employee objects.
+
+**Mentor:** Exactly. Click **Run** beside `main()`.
+
+Expected output:
+
+```text
+101 - Anu - 40000
+102 - Ravi - 55000
+```
+
+**Student:** I understand now. We didn't need to define the employee structure twice.
+
+**Mentor:** Right. One definition, many instances.
+
+And while we're learning, notice that the fields above are intentionally simple so we can see object creation clearly. In a production application, we would ordinarily restrict direct access to fields and expose appropriate operations. We'll explain access modifiers and encapsulation in their own batches.
+
+---
+
+## 🦁 Step 7 — What if something goes wrong?
+
+**Mentor:** Let's look at two beginner mistakes.
+
+**Student:** Okay. What's the first one?
+
+**Mentor:** Suppose you type:
+
+```java
+Employee e1 = null;
+
+e1.name = "Anu";
+```
+
+What happens?
+
+**Student:** Will Java create an employee when it sees `e1.name`?
+
+**Mentor:** No. We never created an `Employee` object.
+
+The variable `e1` contains `null`, so trying to access an instance field through it causes a `NullPointerException`.
+
+```text
+Employee e1 = null;
+          ↓
+No Employee object created
+          ↓
+e1.name = "Anu";
+          ↓
+NullPointerException
+```
+
+**Student:** So declaring a variable is not the same as creating an object.
+
+**Mentor:** Exactly!
+
+**Student:** What's the second mistake?
+
+**Mentor:** Suppose you create an employee but forget to set its fields.
+
+```java
+Employee e3 = new Employee();
+
+e3.printDetails();
+```
+
+What might it print?
+
+**Student:** Maybe an error because there are no values?
+
+**Mentor:** Actually, these **instance fields** have default values.
+
+```text
+0 - null - 0
+```
+
+**Student:** Why?
+
+**Mentor:** Java gives an object's uninitialized numeric instance fields zero and reference fields, such as `String name`, `null`.
+
+That doesn't mean those defaults are meaningful business data! In a real application, we should initialize or validate required information.
+
+**Student:** Does Java also give uninitialized local variables the same defaults?
+
+**Mentor:** No. Local variables follow different rules and must be definitely assigned before use. We'll discuss those differences separately.
+
+---
+
+## 🐯 Step 8 — A small interview challenge
+
+**Mentor:** An interviewer asks: "If you created two Employee objects, are there two Employee classes?"
+
+**Student:** No. There's one class definition and two objects.
+
+**Mentor:** Good. Now another question: "Does the `new` keyword create an object, or does the reference variable create it?"
+
+**Student:** `new` creates the object. The variable lets us refer to it.
+
+**Mentor:** Correct.
+
+**Student:** Can I write `Employee.name` instead of `e1.name`?
+
+**Mentor:** Not for the ordinary instance field we wrote. `name` belongs to an employee object, so we access it through an object reference. Java also has `static` fields, which belong to a class rather than an individual instance, but that's another topic.
+
+**Student:** So I shouldn't confuse the class with its objects.
+
+**Mentor:** Exactly.
+
+---
+
+## 🎯 Today's interview-ready answer
+
+**Student:** If the interviewer asks "What is a class and what is an object?", how should I explain it?
+
+**Mentor:** Say it like this:
+
+> A **class** is a blueprint or definition used to describe the data and behavior of a particular kind of object.
+>
+> For example, an `Employee` class can define fields such as `id`, `name` and `salary`, along with a method such as `printDetails()`.
+>
+> An **object** is an instance of a class. In Java, the `new` expression can create a new object by invoking a constructor.
+>
+> If I create `Employee e1 = new Employee();` and `Employee e2 = new Employee();`, the two references refer to separate objects. Each object can hold different values in its instance fields, while using the behavior defined by the same class.
+>
+> In short, we define the structure once through a class and create individual instances as objects.
+
+### 🧠 One-line memory trick
+
+**Class = Blueprint → `new` = Create Instance → Object = Own Data → Method = Behavior**
+
+---
+
+## 📘 Batch 02 — Test Your Understanding
+
+**🐯 Mentor:** Imagine you're sitting beside me in the office and I'm reviewing your first Employee program. Answer these three questions in your own words.
+
+{@body const questions = ["An office has 500 employees. Why would you define one Employee class instead of separately creating id1, name1, salary1, id2, name2, salary2, and so on?", "You execute Employee e1 = new Employee(); and Employee e2 = new Employee();. Are e1 and e2 the same object? If you change e2.salary, what happens to e1.salary?", "What is the difference between Employee e1 = null; and Employee e1 = new Employee();? What could happen if you try to access e1.name in each case?"]}
+{@body const [answers,setAnswers] = DIL.useState(["","",""])}
+<box border radius="lg" padding={3} gap={3}>
+  <row align="center" gap={2}>
+    <icon name="clipboard-check" color="#38bdf8" size="lg"/>
+    <box flex={1} gap="2px">
+      **Your Knowledge Check**
+      <text size="xs" color="secondary">Three questions · Explain what you understood</text>
+    </box>
+  </row>
+  {#each questions as q,i}
+    <box gap={2} key={i}>
+      <text weight="medium" size="sm">{i+1}. {q}</text>
+      <textarea rows={3} value={answers[i]} onChange={v=>setAnswers(a=>a.map((x,j)=>i===j?v:x))} placeholder="My understanding..."/>
+    </box>
+  {/each}
+  <button block disabled={!answers.every(a=>a.trim())} onClick={()=>GenUI.issueNewTurn("Batch 02 — Classes and Objects. My answers:\n\n"+questions.map((q,i)=>(i+1)+". "+q+"\nMy answer: "+answers[i]).join("\n\n")+"\nPlease review my answers in our simple mentor–student style. Do not mark Batch 02 complete until I explicitly say Understood.")}>Check my understanding <icon name="arrow-right" size="sm"/></button>
+</box>
+
+<box border radius="lg" padding={3} gap={2}>
+  <row align="center" justify="between">
+    **Lecture 01 — Progress**
+    <text color="#38bdf8" weight="medium" tabularNums>Batch 02 / 12</text>
+  </row>
+  <box background="surface-tertiary" radius="full" height="7px" clip>
+    <box background="#38bdf8" width="8.33%" height="100%" radius="full"/>
+  </box>
+  <row align="center" justify="between">
+    <text color="secondary" size="sm">Batch 01 — Java Development Environment</text>
+    <badge color="success">Understood</badge>
+  </row>
+  <row align="center" justify="between">
+    <text color="secondary" size="sm">Batch 02 — Classes and Objects</text>
+    <badge>Awaiting understanding</badge>
+  </row>
+  <row align="center" justify="between">
+    <text color="secondary" size="sm">Batches understood</text>
+    **1 / 12**
+  </row>
+</box>
+
+**🐯 Mentor:** Great work today. You now understand why a class exists, how it defines fields and methods, and why `new Employee()` gives us an individual employee object.
+
+**🐼 Student:** And next, we'll learn how to assign those values at the moment the object is created?
+
+**🐯 Mentor:** Exactly! That's **Batch 03 — Constructors and Constructor Overloading**. When you are ready, say **"Understood Batch 02"**, and we'll advance without repeating today's explanation.
