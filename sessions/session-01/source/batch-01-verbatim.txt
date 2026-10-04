@@ -1,0 +1,44 @@
+0:00
+share uh yeah I have to share the content course content I will share it actually yesterday I said I will share right I will do it I mean sometime today okay um so today can we uh start the class
+
+0:21
+uh sure um one request like yesterday I talked to the um rank I mean zaram sir so he said that uh I requested her to uh start from JDK but he instead there's no use of learning JDK now JDK modern
+
+0:41
+version of Java they will test to you on the modern version mostly he said like that uh s uh sorry JDK version uh different version he yeah he said that there's no need to
+
+0:55
+learn JDK8 now it's outdated anyways like Mhm. Yeah. Okay. So, uh yeah, you can uh I think uh uh for our lecture purpose, you can briefly go on JDK and mostly focus on modern Java 21.
+
+1:14
+um Java 21 that's right but if you see um uh Java uh basic concepts uh you can cover uh if we go for JDK2 there are features like thread virtual threads and two to three uh important features they
+
+1:33
+introduced in Java 21 that we can cover uh but the basic things also we have to cover what are all the basic concept in Java like collection framework, exception handling, uh polymorism
+
+1:48
+everything these are all the basic stuff that will be there. Uh so once you understand it then we can go for JDK 21 JDK 21 new features like a virtual threads and all how it is introduced
+
+2:03
+that we will cover. Uh yeah okay fine okay I'm good with it. I'm sharing. So yes, we can start the session from today. Yeah. So today uh we'll go with the code Java uh or yesterday you were asking
+
+2:28
+that we will go with the application a spring boot application right now. So will it be okay to start from core java concept? Uh yes sure. Okay, fine. That I shared my screen. If it's visible, you
+
+2:53
+let me know. Yes, it's clearly visible. Okay. Uh so we have to use the ID for uh testing purpose. Uh so Intelligj is the IDE which is widely used for Java institution. Uh other programs also for
+
+3:10
+other programs also you can use intelligj. Uh have you used intelligj? Mostly deal with VS code and eclipse. So intelligj I know about it. Okay, because uh YouTube lectures mostly
+
+3:24
+intellig only. So I'm aware of this UI and VS code also we can use there is a lot of uh there is no problem at all but mostly uh intellig we use in the spring boot application and all I think we can
+
+3:40
+go ahead with intelligj itself. Yeah, I have initiated my one year trail as a student account using Intellig. Intellig. Okay. Yeah. Yeah. Basically, there are two versions in Intellig. One
+
+3:52
+is community edition and another one is ultimate edition. Community edition you can download and use it. And the other one ultimate one you have to pay for it. Licensed version only you can use. Um
+
+4:06
+anyhow community edition is okay for you for your uh testing purpose. All right. Okay.
