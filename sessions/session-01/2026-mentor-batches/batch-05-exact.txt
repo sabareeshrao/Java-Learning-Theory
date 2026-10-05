@@ -1,0 +1,641 @@
+# 🐼 Batch 05 — Public Classes vs Public Constructors
+
+JAVA CORE · LECTURE 01 · BATCH 05 OF 12 · TRANSCRIPT 17:38–24:55
+
+**Today's interview question: What is the difference between making a Java class public and making its constructor public, especially when code is in another package?**
+
+**Characters:** 🐯 Mentor — a Java developer with five years of practical experience. 🐼 Student — a college graduate who knows basic Java but has never worked in a development team.
+
+**Our goal:** Understand that **class visibility** and **constructor visibility** are two separate decisions. By the end, you should be able to explain why another package may be able to see an `Employee` class but still be unable to create an `Employee` object.
+
+---
+
+## 🐯 Step 1 — Your code suddenly stops compiling
+
+**Mentor:** Until now, we kept our classes simple. Imagine this project:
+
+```text
+src/
+├── company/
+│   └── model/
+│       └── Employee.java
+│
+└── company/
+    └── app/
+        └── Main.java
+```
+
+The two Java files are in **different packages**.
+
+In `Employee.java`:
+
+```java
+package company.model;
+
+public class Employee {
+
+    int id;
+    String name;
+
+    Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+```
+
+And in `Main.java`:
+
+```java
+package company.app;
+
+import company.model.Employee;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Employee e1 =
+                new Employee(101, "Anu");
+    }
+}
+```
+
+**Student:** That looks normal. The class is public and we imported it.
+
+**Mentor:** Right. But IntelliJ gives us an error around the constructor call.
+
+Something like:
+
+```text
+Employee(int, String) is not public in company.model.Employee;
+cannot be accessed from outside package
+```
+
+**Student:** Wait. The class itself says `public class Employee`. Why can't I create it?
+
+**Mentor:** Excellent. That is the exact problem today's batch solves.
+
+---
+
+## 🦊 Step 2 — A public class and a public constructor are not the same thing
+
+**Mentor:** Look at these two lines separately.
+
+Class declaration:
+
+```java
+public class Employee
+```
+
+Constructor declaration:
+
+```java
+Employee(int id, String name)
+```
+
+Do you see `public` before the constructor?
+
+**Student:** No.
+
+**Mentor:** Exactly.
+
+The class is public.
+
+The constructor is **not** public.
+
+Because we didn't write an access modifier before the constructor, it has **package-private access**.
+
+For now, read package-private simply as:
+
+> Accessible from code in the **same package**, but not from unrelated code in a different package.
+
+We'll build the full access-modifier table in Batch 06.
+
+---
+
+## 🐨 Step 3 — What does the public class actually allow?
+
+**Student:** So what did `public class Employee` give me?
+
+**Mentor:** It made the **type itself** accessible from other packages, assuming normal module/classpath rules.
+
+That means code in `company.app` can refer to the type:
+
+```java
+import company.model.Employee;
+```
+
+and Java understands what `Employee` means.
+
+Think of it like two gates.
+
+```text
+Different package
+      |
+      v
+[ Gate 1: Is Employee class visible? ]
+      |
+      | public class Employee
+      v
+YES — type is visible
+      |
+      v
+[ Gate 2: Is chosen constructor accessible? ]
+      |
+      | Employee(int, String)
+      | package-private
+      v
+NO — object creation blocked
+```
+
+**Student:** So importing the class only gets me through the first gate.
+
+**Mentor:** Exactly.
+
+Being able to **see a class** does not automatically mean you can use **every constructor, field, or method** inside it.
+
+---
+
+## 🐯 Step 4 — Let's fix the constructor
+
+**Mentor:** If we intend code from other packages to create employees directly, we can make the constructor public:
+
+```java
+package company.model;
+
+public class Employee {
+
+    int id;
+    String name;
+
+    public Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+```
+
+Now the code in `company.app.Main` can call:
+
+```java
+Employee e1 =
+        new Employee(101, "Anu");
+```
+
+**Student:** So both gates are open now.
+
+**Mentor:** Correct.
+
+```text
+public class Employee
+        ↓
+Class visible across packages
+
+public Employee(...)
+        ↓
+Constructor callable across packages
+```
+
+---
+
+## 🦊 Step 5 — What if the class itself is not public?
+
+**Student:** What if I remove `public` from the class but make the constructor public?
+
+Like this:
+
+```java
+package company.model;
+
+class Employee {
+
+    public Employee(int id, String name) {
+    }
+}
+```
+
+Will another package be able to create it because the constructor is public?
+
+**Mentor:** No.
+
+The outer gate fails first.
+
+The top-level class itself is package-private, so unrelated code in another package cannot use that type.
+
+Conceptually:
+
+```text
+Different package
+      |
+      v
+Is Employee class visible?
+      |
+      | class Employee
+      | no public modifier
+      v
+NO
+      |
+      X
+Constructor visibility no longer helps
+```
+
+**Student:** So making the constructor public cannot make an inaccessible class usable.
+
+**Mentor:** Exactly.
+
+The containing class must first be accessible.
+
+---
+
+## 🐨 Step 6 — Same package changes the result
+
+**Mentor:** Now let's move `Main` into the same package as `Employee`.
+
+```text
+company.model
+
+Employee.java
+Main.java
+```
+
+Employee:
+
+```java
+package company.model;
+
+public class Employee {
+
+    Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    int id;
+    String name;
+}
+```
+
+Main:
+
+```java
+package company.model;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Employee e1 =
+                new Employee(101, "Anu");
+    }
+}
+```
+
+Will this compile?
+
+**Student:** I think yes, because both classes are in the same package.
+
+**Mentor:** Correct.
+
+The constructor has package-private access, and same-package code is allowed to call it.
+
+This is why the exact same constructor can behave differently depending on where the caller lives.
+
+---
+
+## 🐯 Step 7 — Why would anyone intentionally hide a constructor?
+
+**Student:** If public constructors are easier, why would we ever leave a constructor non-public?
+
+**Mentor:** Because sometimes we **don't want every caller to create objects directly**.
+
+Imagine we want Employee creation to go through a controlled method.
+
+For example:
+
+```java
+package company.model;
+
+public class Employee {
+
+    private final int id;
+    private final String name;
+
+    Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public static Employee create(int id, String name) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("Invalid employee id");
+        }
+
+        return new Employee(id, name);
+    }
+}
+```
+
+**Student:** The constructor isn't public, but the class exposes a public creation method.
+
+**Mentor:** Exactly.
+
+This is just an illustration of why constructor visibility can be a design decision.
+
+We're not yet studying `private`, factories, or all access-modifier combinations in depth—that belongs in Batch 06.
+
+The important idea today is:
+
+> A public class can expose some operations while restricting how instances are created.
+
+---
+
+## 🦊 Step 8 — Class access and member access are independent
+
+**Mentor:** Let's make the distinction even clearer.
+
+Suppose:
+
+```java
+public class Employee {
+
+    public Employee() {
+    }
+
+    void printDetails() {
+    }
+}
+```
+
+From another package:
+
+```java
+Employee e1 = new Employee();
+```
+
+may be allowed because both the class and constructor are public.
+
+But:
+
+```java
+e1.printDetails();
+```
+
+may fail if `printDetails()` is package-private.
+
+**Student:** So there can be separate access rules for:
+
+- the class,
+- the constructor,
+- methods,
+- and fields.
+
+**Mentor:** Exactly.
+
+That's why I don't want you to think:
+
+> "The class is public, so everything inside it is public."
+
+That is false.
+
+Each member can have its own access level.
+
+---
+
+## 🐨 Step 9 — A very common interview trap
+
+**Mentor:** Interviewer asks:
+
+> "If a class is public, can I always instantiate it from another package?"
+
+What would you say?
+
+**Student:** No. The class has to be visible, but the constructor I want to call also has to be accessible.
+
+**Mentor:** Perfect.
+
+For example:
+
+```java
+public class Employee {
+
+    Employee() {
+    }
+}
+```
+
+From another package, the type may be visible, but:
+
+```java
+new Employee();
+```
+
+fails because the no-argument constructor is package-private.
+
+---
+
+## 🦁 Step 10 — Another subtle point: implicit constructor access
+
+**Student:** What if I don't write any constructor at all?
+
+```java
+public class Employee {
+}
+```
+
+Java creates the implicit no-argument constructor, right?
+
+**Mentor:** Correct.
+
+And here's an important detail.
+
+The implicit default constructor gets the **same accessibility as the class**.
+
+So for:
+
+```java
+public class Employee {
+}
+```
+
+the compiler-provided no-argument constructor is effectively public.
+
+But if the top-level class is package-private:
+
+```java
+class Employee {
+}
+```
+
+the implicit constructor is package-private too.
+
+**Student:** So Java isn't creating a magical public constructor regardless of the class.
+
+**Mentor:** Exactly.
+
+---
+
+## 🐯 Step 11 — Let's test three combinations
+
+**Mentor:** Tell me whether code in a different package can create the object.
+
+### Case A
+
+```java
+public class Employee {
+
+    public Employee() {
+    }
+}
+```
+
+**Student:** Yes. Class public, constructor public.
+
+**Mentor:** Correct.
+
+### Case B
+
+```java
+public class Employee {
+
+    Employee() {
+    }
+}
+```
+
+**Student:** No. The class is visible, but the constructor is package-private.
+
+**Mentor:** Correct.
+
+### Case C
+
+```java
+class Employee {
+
+    public Employee() {
+    }
+}
+```
+
+**Student:** No. The class itself isn't accessible from another package.
+
+**Mentor:** Perfect.
+
+Here's the memory table:
+
+| Class | Constructor | Different package can directly create? |
+|---|---|---|
+| `public` | `public` | ✅ Yes |
+| `public` | package-private | ❌ No |
+| package-private | `public` | ❌ No |
+
+We'll add `private` and `protected` behavior in the next batch.
+
+---
+
+## 🦊 Step 12 — Package is part of the design
+
+**Student:** I used to think packages were just folders.
+
+**Mentor:** That's a common beginner view.
+
+Packages do help organize code, but they also participate in Java's access-control system.
+
+Compare:
+
+```text
+company.model.Employee
+company.model.EmployeeService
+```
+
+with:
+
+```text
+company.model.Employee
+company.app.Main
+```
+
+If a member has package-private access, code in `company.model` can use it, while unrelated code in `company.app` cannot.
+
+**Student:** So package boundaries affect what code can touch.
+
+**Mentor:** Exactly.
+
+Later, when you work in a larger application, package structure and access choices help developers expose only what other parts of the application should use.
+
+---
+
+## 🎯 Today's interview-ready answer
+
+**Student:** If an interviewer asks, "What is the difference between a public class and a public constructor?", what should I say?
+
+**Mentor:** You can answer:
+
+> A public class means the class type can be accessed from other packages, subject to the application's module and classpath setup.
+>
+> Constructor accessibility is a separate decision. A class can be public while one of its constructors is package-private, protected, or private.
+>
+> For example, if I have a public `Employee` class but its constructor has no access modifier, code in the same package can call that constructor, but unrelated code in another package cannot.
+>
+> To instantiate the class directly from another package, both the class and the chosen constructor must be accessible to the caller.
+>
+> So class visibility controls whether the type is visible, while constructor visibility controls whether a particular object-creation path can be used.
+
+### 🧠 One-line memory trick
+
+**Class Access = Can I See the Type? → Constructor Access = Can I Create It This Way?**
+
+### ⭐ Two-gate memory trick
+
+**Gate 1: Class Visible → Gate 2: Constructor Accessible → Then `new` Works**
+
+---
+
+## 📘 Batch 05 — Test Your Understanding
+
+**🐯 Mentor:** Explain these three cases in your own words:
+
+1. Why can code in another package import a `public Employee` class but still fail at `new Employee()`?
+2. If `Employee()` has no access modifier, why can another class in the **same package** call it while a class in a different package cannot?
+3. Which gate fails in this example, and why?
+   ```java
+   class Employee {
+       public Employee() {
+       }
+   }
+   ```
+   when `Main` is in another package.
+
+---
+
+## 📊 Lecture 01 — Progress
+
+```text
+Batch 01 — Java Development Environment       ✅ Understood
+Batch 02 — Classes and Objects                ✅ Understood
+Batch 03 — Constructors & Overloading         ✅ Understood
+Batch 04 — this Keyword & Java Memory         ✅ Understood
+Batch 05 — Public Class vs Constructor        🟠 Presented, awaiting understanding
+Batch 06 — All Four Access Modifiers          ⬜ Next
+```
+
+**Batches authored:** 5 / 12  
+**Batches explicitly understood:** 4 / 12
+
+**🐯 Mentor:** Today you learned something developers often miss:
+
+```text
+public class
+    ≠
+everything inside the class is public
+```
+
+A caller must pass the appropriate access checks for the **class** and the **member it wants to use**.
+
+Next we'll expand this into the complete access-control picture:
+
+**`public` vs `protected` vs package-private vs `private`**
+
+That's **Batch 06 — All Four Access Modifiers**.
+
+When you're ready, say **"Understood Batch 05."**
