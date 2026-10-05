@@ -1,0 +1,726 @@
+# 🐼 Batch 07 — The Four Pillars of OOP
+
+JAVA CORE · LECTURE 01 · BATCH 07 OF 12 · TRANSCRIPT 34:38–37:22
+
+**Today's interview question: What are the four pillars of object-oriented programming in Java, and why do we need encapsulation, inheritance, abstraction, and polymorphism?**
+
+**Characters:** 🐯 Mentor — a Java developer with five years of practical experience. 🐼 Student — a college graduate who knows basic Java but has never worked in a development team.
+
+**Our goal:** Stop treating the four OOP principles as definitions to memorize. We'll use one small employee system and discover why each principle exists.
+
+---
+
+## 🐯 Step 1 — The application is becoming messy
+
+**Mentor:** Imagine our small application now has different employee types.
+
+We have:
+
+- regular employees,
+- managers,
+- contractors.
+
+Each one has:
+
+- a name,
+- some payment information,
+- and a way to describe what they do.
+
+A beginner might create completely unrelated classes:
+
+```java
+public class Employee {
+    String name;
+    int salary;
+}
+
+public class Manager {
+    String name;
+    int salary;
+    int teamSize;
+}
+
+public class Contractor {
+    String name;
+    int hourlyRate;
+}
+```
+
+**Student:** That works, doesn't it?
+
+**Mentor:** It works initially.
+
+But look at the repeated concepts.
+
+```text
+Employee   → name
+Manager    → name
+Contractor → name
+```
+
+And later we might repeat methods for printing details, validation, or common behavior.
+
+**Student:** So the code starts duplicating ideas.
+
+**Mentor:** Exactly.
+
+Object-oriented programming gives us several tools for organizing this kind of problem.
+
+The four principles we'll use are:
+
+```text
+Encapsulation
+Inheritance
+Abstraction
+Polymorphism
+```
+
+---
+
+## 🦊 Step 2 — Pillar 1: Encapsulation
+
+**Mentor:** Let's begin with something you've already seen.
+
+Suppose salary is public:
+
+```java
+public class Employee {
+
+    public int salary;
+}
+```
+
+Any caller can write:
+
+```java
+employee.salary = -10000;
+```
+
+What's the problem?
+
+**Student:** The object can end up with invalid data.
+
+**Mentor:** Exactly.
+
+So we hide the field and expose controlled behavior:
+
+```java
+public class Employee {
+
+    private int salary;
+
+    public void updateSalary(int newSalary) {
+
+        if (newSalary <= 0) {
+            throw new IllegalArgumentException(
+                    "Salary must be positive"
+            );
+        }
+
+        salary = newSalary;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+}
+```
+
+**Student:** So encapsulation means making everything private?
+
+**Mentor:** Not exactly.
+
+Encapsulation is the idea of **bundling data and behavior together and controlling how the object's internal state is accessed or changed**.
+
+Private fields are a common technique, but the deeper idea is controlled access.
+
+Think:
+
+```text
+Object's internal state
+        ↓
+protected behind methods
+        ↓
+outside code uses controlled operations
+```
+
+**Student:** So the object protects its own rules.
+
+**Mentor:** Exactly.
+
+---
+
+## 🐨 Step 3 — Pillar 2: Inheritance
+
+**Mentor:** Now let's look at the duplication between Employee and Manager.
+
+A manager is still an employee.
+
+So instead of repeating all employee data, we can express that relationship:
+
+```java
+public class Employee {
+
+    protected String name;
+
+    public void work() {
+        System.out.println("Employee is working");
+    }
+}
+```
+
+Then:
+
+```java
+public class Manager extends Employee {
+
+    private int teamSize;
+
+    public void manageTeam() {
+        System.out.println("Manager is managing a team");
+    }
+}
+```
+
+**Student:** So Manager automatically gets the accessible members from Employee.
+
+**Mentor:** Correct.
+
+The keyword:
+
+```java
+extends
+```
+
+creates an inheritance relationship.
+
+Conceptually:
+
+```text
+Employee
+   |
+   | common employee behavior/state
+   v
+Manager
+   |
+   | manager-specific behavior
+   v
+manageTeam()
+```
+
+**Student:** So inheritance helps reuse common behavior.
+
+**Mentor:** Yes, but don't reduce inheritance to "copying code."
+
+It models an **is-a relationship**.
+
+A Manager **is an** Employee.
+
+That's more important than simply avoiding duplicate lines.
+
+---
+
+## 🐯 Step 4 — When inheritance is a bad idea
+
+**Student:** So should I use inheritance whenever two classes share code?
+
+**Mentor:** No.
+
+Suppose you have:
+
+```text
+Employee
+Laptop
+```
+
+Both might have an `id`.
+
+Would you write:
+
+```java
+class Laptop extends Employee {
+}
+```
+
+**Student:** No. A laptop is not an employee.
+
+**Mentor:** Exactly.
+
+Sharing one property does not create an is-a relationship.
+
+A common beginner mistake is forcing inheritance just to reuse code.
+
+Ask:
+
+> Is the child genuinely a specialized version of the parent?
+
+If not, inheritance is probably the wrong relationship.
+
+---
+
+## 🦊 Step 5 — Pillar 3: Abstraction
+
+**Student:** Abstraction is the one I usually find vague.
+
+**Mentor:** Think of abstraction as:
+
+> Show the important idea; hide unnecessary implementation detail.
+
+Imagine payroll code needs to calculate payment.
+
+It shouldn't necessarily care about every internal step used by each employee type.
+
+We could define a simple contract:
+
+```java
+public interface Payable {
+
+    double calculatePay();
+}
+```
+
+Then different classes can implement it.
+
+```java
+public class SalariedEmployee implements Payable {
+
+    private double monthlySalary;
+
+    public SalariedEmployee(double monthlySalary) {
+        this.monthlySalary = monthlySalary;
+    }
+
+    @Override
+    public double calculatePay() {
+        return monthlySalary;
+    }
+}
+```
+
+And:
+
+```java
+public class Contractor implements Payable {
+
+    private double hourlyRate;
+    private int hoursWorked;
+
+    public Contractor(double hourlyRate, int hoursWorked) {
+        this.hourlyRate = hourlyRate;
+        this.hoursWorked = hoursWorked;
+    }
+
+    @Override
+    public double calculatePay() {
+        return hourlyRate * hoursWorked;
+    }
+}
+```
+
+**Student:** Payroll just knows it can call `calculatePay()`.
+
+**Mentor:** Exactly.
+
+It doesn't need to know the internal formula before calling it.
+
+That's abstraction.
+
+```text
+What caller needs:
+calculatePay()
+
+Hidden detail:
+monthly salary formula
+hourly rate × hours
+other internal rules
+```
+
+We'll study abstract classes specifically in the next batch.
+
+---
+
+## 🐨 Step 6 — Pillar 4: Polymorphism
+
+**Mentor:** Now the interesting part.
+
+Both classes implement `Payable`.
+
+So we can write:
+
+```java
+Payable p1 =
+        new SalariedEmployee(5000);
+
+Payable p2 =
+        new Contractor(50, 80);
+```
+
+Then:
+
+```java
+System.out.println(p1.calculatePay());
+System.out.println(p2.calculatePay());
+```
+
+**Student:** Same method call, but different behavior.
+
+**Mentor:** Exactly.
+
+That's the core idea of runtime polymorphism here.
+
+```text
+calculatePay()
+      |
+      +---- SalariedEmployee → monthly salary
+      |
+      +---- Contractor       → hourlyRate × hoursWorked
+```
+
+The caller uses the common abstraction:
+
+```java
+Payable
+```
+
+but the actual object determines which implementation runs.
+
+---
+
+## 🐯 Step 7 — Why polymorphism matters
+
+**Student:** Why not just write:
+
+```java
+SalariedEmployee s = ...
+Contractor c = ...
+```
+
+and call each one separately?
+
+**Mentor:** You can.
+
+But imagine processing 1,000 payable workers.
+
+With polymorphism:
+
+```java
+List<Payable> workers = List.of(
+        new SalariedEmployee(5000),
+        new Contractor(50, 80)
+);
+
+for (Payable worker : workers) {
+    System.out.println(
+            worker.calculatePay()
+    );
+}
+```
+
+**Student:** The loop doesn't need an `if` asking which type each object is.
+
+**Mentor:** Exactly.
+
+Without polymorphism, beginners often create code like:
+
+```java
+if (type.equals("SALARIED")) {
+    // salaried formula
+} else if (type.equals("CONTRACTOR")) {
+    // contractor formula
+}
+```
+
+As types increase, that conditional logic can spread everywhere.
+
+Polymorphism lets each object provide its own behavior behind a common type.
+
+---
+
+## 🦊 Step 8 — Let's connect all four in one picture
+
+**Mentor:** Here's the complete picture.
+
+```text
+ENCAPSULATION
+Protect object's internal state
+salary → private
+update through controlled methods
+
+        ↓
+
+INHERITANCE
+Reuse/model common parent-child behavior
+Manager extends Employee
+
+        ↓
+
+ABSTRACTION
+Expose what matters
+Payable → calculatePay()
+
+        ↓
+
+POLYMORPHISM
+Same abstraction, different runtime behavior
+SalariedEmployee.calculatePay()
+Contractor.calculatePay()
+```
+
+**Student:** They are related, but each solves a different problem.
+
+**Mentor:** Exactly.
+
+That's what interviewers want to hear.
+
+Not four disconnected dictionary definitions.
+
+---
+
+## 🐨 Step 9 — A simple real-world analogy
+
+**Student:** Can you give me one analogy that connects all four?
+
+**Mentor:** Think about a vehicle-driving application.
+
+### Encapsulation
+
+The engine's internal state isn't changed directly by the driver.
+
+The driver uses controls.
+
+```text
+private engine state
+        ↓
+start()
+accelerate()
+brake()
+```
+
+### Inheritance
+
+A Car and Truck can be specialized forms of Vehicle.
+
+```text
+Vehicle
+  ├── Car
+  └── Truck
+```
+
+### Abstraction
+
+The driver knows:
+
+```text
+accelerate()
+brake()
+steer()
+```
+
+The driver doesn't need to understand fuel injection details.
+
+### Polymorphism
+
+```java
+Vehicle vehicle = new Car();
+```
+
+or:
+
+```java
+Vehicle vehicle = new Truck();
+```
+
+The same high-level operation may behave differently depending on the actual vehicle.
+
+**Student:** That makes the four pillars easier to separate.
+
+---
+
+## 🦁 Step 10 — Common interview confusion: abstraction vs encapsulation
+
+**Student:** I confuse abstraction and encapsulation.
+
+**Mentor:** Very common.
+
+Use this distinction:
+
+### Encapsulation asks:
+
+> How do I protect and control an object's internal state?
+
+Example:
+
+```java
+private int salary;
+```
+
+with controlled methods.
+
+### Abstraction asks:
+
+> What does the caller need to know, and what implementation details can be hidden?
+
+Example:
+
+```java
+interface Payable {
+    double calculatePay();
+}
+```
+
+Caller knows **what** operation exists.
+
+Each implementation hides **how** it calculates.
+
+**Student:** So encapsulation protects internals, while abstraction hides unnecessary complexity behind a useful contract.
+
+**Mentor:** Exactly.
+
+They often work together, but they're not identical.
+
+---
+
+## 🐯 Step 11 — Common interview confusion: inheritance vs polymorphism
+
+**Student:** I also confuse inheritance and polymorphism.
+
+**Mentor:** Use this:
+
+### Inheritance
+
+Defines a relationship:
+
+```java
+class Manager extends Employee
+```
+
+Manager is an Employee.
+
+### Polymorphism
+
+Lets one common type represent different actual objects:
+
+```java
+Payable worker =
+        new Contractor(50, 80);
+```
+
+and:
+
+```java
+worker.calculatePay();
+```
+
+The actual object's implementation executes.
+
+**Student:** So inheritance is about relationship and reuse, while polymorphism is about one interface/type producing different behavior.
+
+**Mentor:** Exactly.
+
+---
+
+## 🦊 Step 12 — Do all four have to appear together?
+
+**Student:** Does every class need all four principles?
+
+**Mentor:** No.
+
+That's another beginner misconception.
+
+You don't write:
+
+> "I need encapsulation, inheritance, abstraction, and polymorphism in every class."
+
+You use the principles when they improve the design.
+
+A simple data class may use encapsulation without inheritance.
+
+A strategy design may use abstraction and polymorphism without class inheritance.
+
+Good object-oriented design is about choosing the right relationship—not checking four boxes.
+
+---
+
+## 🎯 Today's interview-ready answer
+
+**Student:** If an interviewer asks, "Explain the four pillars of OOP," how should I answer?
+
+**Mentor:** You can say:
+
+> The four commonly discussed OOP principles are encapsulation, inheritance, abstraction, and polymorphism.
+>
+> **Encapsulation** means bundling data and behavior together and controlling access to an object's internal state, often with private fields and public methods.
+>
+> **Inheritance** allows one class to specialize another class and reuse or extend accessible behavior, representing an is-a relationship.
+>
+> **Abstraction** exposes the important operations while hiding unnecessary implementation details, for example through interfaces or abstract classes.
+>
+> **Polymorphism** allows code to work with a common parent type or interface while different concrete objects provide different implementations at runtime.
+>
+> Together, these principles help make object-oriented code easier to organize, extend, and maintain when applied appropriately.
+
+### 🧠 One-line memory trick
+
+**Encapsulation = Protect → Inheritance = Reuse/IS-A → Abstraction = Hide HOW → Polymorphism = Same Call, Different Behavior**
+
+### ⭐ Four-pillar chain
+
+```text
+Protect
+  ↓
+Reuse / specialize
+  ↓
+Expose only what's needed
+  ↓
+Run different behavior through one type
+```
+
+---
+
+## 📘 Batch 07 — Test Your Understanding
+
+**🐯 Mentor:** Explain these three situations in your own words:
+
+1. Why is making `salary` private and updating it through a validation method an example of encapsulation?
+2. Why is `Manager extends Employee` inheritance, but `Laptop extends Employee` would be a bad use of inheritance?
+3. If both `SalariedEmployee` and `Contractor` implement `Payable`, why can this loop call the same method without knowing the exact class?
+   ```java
+   for (Payable worker : workers) {
+       worker.calculatePay();
+   }
+   ```
+
+---
+
+## 📊 Lecture 01 — Progress
+
+```text
+Batch 01 — Java Development Environment       ✅ Understood
+Batch 02 — Classes and Objects                ✅ Understood
+Batch 03 — Constructors & Overloading         ✅ Understood
+Batch 04 — this Keyword & Java Memory         ✅ Understood
+Batch 05 — Public Class vs Constructor        ✅ Understood
+Batch 06 — All Four Access Modifiers          ✅ Understood
+Batch 07 — Four OOP Pillars                   🟠 Presented, awaiting understanding
+Batch 08 — Abstract Classes & Inheritance     ⬜ Next
+```
+
+**Batches authored:** 7 / 12  
+**Batches explicitly understood:** 6 / 12
+
+**🐯 Mentor:** Today, don't memorize four definitions separately.
+
+Remember the problem each pillar solves:
+
+```text
+Encapsulation → protect state
+Inheritance   → model specialization
+Abstraction   → hide unnecessary detail
+Polymorphism  → one type, different behavior
+```
+
+Next we'll take **abstraction and inheritance** and go much deeper using the Vehicle → Car → BMW style hierarchy from the transcript.
+
+That's **Batch 08 — Abstract Classes and Inheritance**.
+
+When you're ready, say **"Understood Batch 07."**
