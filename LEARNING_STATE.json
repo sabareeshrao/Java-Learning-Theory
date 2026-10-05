@@ -21,12 +21,14 @@
   ],
   "confirmedUnderstoodBatchIds": [
     "01",
-    "03"
+    "02",
+    "03",
+    "04"
   ],
-  "activeBatchId": "04",
-  "activeBatchStatus": "presented_awaiting_understood",
-  "nextBatchAfterConfirmation": "05",
-  "nextBatchTopic": "Public Classes vs Public Constructors",
+  "activeBatchId": "05",
+  "activeBatchStatus": "queued_being_authored",
+  "nextBatchAfterConfirmation": "06",
+  "nextBatchTopic": "All Four Access Modifiers",
   "exactOriginals": {
     "01": "sessions/session-01/2026-mentor-batches/batch-01-exact.txt",
     "02": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt",
@@ -43,7 +45,7 @@
     "userTranscript": "Full 61-minute transcript supplied in the conversation; 12-batch topic/time roadmap recorded in ROADMAP_12_BATCHES.md.",
     "legacySourceSnippet": "sessions/session-01/source/batch-01-verbatim.txt; pre-existing first-batch excerpt only"
   },
-  "lastConfirmedBatchId": "03",
+  "lastConfirmedBatchId": "04",
   "learningDetails": {
     "01": {
       "title": "Understanding Java and the Development Environment",
@@ -64,7 +66,7 @@
     },
     "02": {
       "title": "Classes and Objects",
-      "status": "presented_awaiting_understood",
+      "status": "understood_self_reported",
       "transcriptWindow": "04:06–08:15",
       "topics": [
         "class and object difference",
@@ -76,7 +78,9 @@
         "default instance-field values"
       ],
       "hasTestYourUnderstanding": true,
-      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt"
+      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt",
+      "confirmedOn": "2026-10-05",
+      "evidence": "User explicitly said 'understood batch 2 and batch 4' on 2026-10-05."
     },
     "03": {
       "title": "Constructors and Constructor Overloading",
@@ -100,7 +104,7 @@
     },
     "04": {
       "title": "The this Keyword and Java Memory",
-      "status": "presented_awaiting_understood",
+      "status": "understood_self_reported",
       "transcriptWindow": "13:29–17:37",
       "topics": [
         "this refers to current object",
@@ -114,13 +118,15 @@
         "JVM allocation optimization caveat"
       ],
       "hasTestYourUnderstanding": true,
-      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-04-exact.txt"
+      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-04-exact.txt",
+      "confirmedOn": "2026-10-05",
+      "evidence": "User explicitly said 'understood batch 2 and batch 4' on 2026-10-05."
     }
   },
-  "nextAction": "Batch 04 is presented and awaiting explicit confirmation. Batch 02 also remains unconfirmed. If user says Understood Batch 04, mark Batch 04 understood and write Batch 05 — Public Classes vs Public Constructors. Do not infer Batch 02 completion.",
+  "nextAction": "Author Batch 05 — Public Classes vs Public Constructors, preserve exact response, then mark it presented awaiting understanding. All Batches 01–04 are now explicitly understood.",
   "progress": {
     "authored": 4,
-    "understood": 2,
+    "understood": 4,
     "planned": 12
   },
   "continuityFiles": [
@@ -130,8 +136,5 @@
     "TRACKER.md"
   ],
   "archivePolicy": "Exact original assistant batch texts are immutable, no paraphrasing or rewriting; store complete source including chat-specific UI code; separate status/metadata from archived lesson.",
-  "pendingConfirmationBatchIds": [
-    "02",
-    "04"
-  ]
+  "pendingConfirmationBatchIds": []
 }
