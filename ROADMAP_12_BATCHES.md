@@ -12,8 +12,8 @@
 | 02 | 04:06–08:15 | Classes and Objects | What exactly happens when we create an Employee object? Class, fields, methods, objects, `new`. | **✅ Understood — 2026-10-05** |
 | 03 | 08:16–13:28 | Constructors and Constructor Overloading | Why does Java need constructors and can one class have multiple constructors? Implicit no-arg constructor rules. | **✅ Understood — 2026-10-05** |
 | 04 | 13:29–17:37 | The `this` Keyword and Java Memory | Which object are we modifying? `this`, references, stack and heap, per-object state. | **✅ Understood — 2026-10-05** |
-| 05 | 17:38–24:55 | Public Classes vs Public Constructors | Why can a class be visible while its constructor is inaccessible? Package boundaries. | **🟠 Presented — awaiting understanding** |
-| 06 | 24:56–34:37 | All Four Access Modifiers | What do public, private, protected and package-private permit? | Queued |
+| 05 | 17:38–24:55 | Public Classes vs Public Constructors | Why can a class be visible while its constructor is inaccessible? Package boundaries. | **✅ Understood — 2026-10-05** |
+| 06 | 24:56–34:37 | All Four Access Modifiers | What do public, private, protected and package-private permit? | **🟠 Presented — awaiting understanding** |
 | 07 | 34:38–37:22 | The Four Pillars of OOP | Why encapsulation, inheritance, abstraction and polymorphism? | Queued |
 | 08 | 37:23–41:56 | Abstract Classes and Inheritance | Why does a Vehicle declare a method without implementation? | Queued |
 | 09 | 41:57–51:35 | Multilevel Inheritance and Concrete Classes | How do Vehicle, Car and BMW inherit and implement methods? | Queued |
@@ -39,4 +39,4 @@ Read [the current course state](LEARNING_STATE.json) and [mentor checklist](MENT
 
 Current exact Batch 01: [full original, unrewritten](sessions/session-01/2026-mentor-batches/batch-01-exact.txt).
 
-**Counts:** 5 / 12 batches authored; **4 / 12 explicitly understood** (Batches 01–04). Batch 05 is presented and awaiting confirmation. This is not the 1,000-question experience course.
+**Counts:** 6 / 12 batches authored; **5 / 12 explicitly understood** (Batches 01–05). Batch 06 is presented and awaiting confirmation. This is not the 1,000-question experience course.
