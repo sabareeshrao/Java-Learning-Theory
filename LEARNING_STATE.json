@@ -19,12 +19,13 @@
     "03"
   ],
   "confirmedUnderstoodBatchIds": [
-    "01"
+    "01",
+    "03"
   ],
-  "activeBatchId": "03",
-  "activeBatchStatus": "presented_awaiting_understood",
-  "nextBatchAfterConfirmation": "04",
-  "nextBatchTopic": "The this Keyword and Java Memory",
+  "activeBatchId": "04",
+  "activeBatchStatus": "queued_being_authored",
+  "nextBatchAfterConfirmation": "05",
+  "nextBatchTopic": "Public Classes vs Public Constructors",
   "exactOriginals": {
     "01": "sessions/session-01/2026-mentor-batches/batch-01-exact.txt",
     "02": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt",
@@ -40,7 +41,7 @@
     "userTranscript": "Full 61-minute transcript supplied in the conversation; 12-batch topic/time roadmap recorded in ROADMAP_12_BATCHES.md.",
     "legacySourceSnippet": "sessions/session-01/source/batch-01-verbatim.txt; pre-existing first-batch excerpt only"
   },
-  "lastConfirmedBatchId": "01",
+  "lastConfirmedBatchId": "03",
   "learningDetails": {
     "01": {
       "title": "Understanding Java and the Development Environment",
@@ -77,7 +78,7 @@
     },
     "03": {
       "title": "Constructors and Constructor Overloading",
-      "status": "presented_awaiting_understood",
+      "status": "understood_self_reported",
       "transcriptWindow": "08:16–13:28",
       "topics": [
         "constructor purpose",
@@ -91,13 +92,15 @@
       ],
       "hasTestYourUnderstanding": true,
       "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-03-exact.txt",
-      "note": "User explicitly requested 'next batch' without confirming Batch 02. Batch 02 remains presented_awaiting_understood; no completion inferred."
+      "note": "User explicitly requested 'next batch' without confirming Batch 02. Batch 02 remains presented_awaiting_understood; no completion inferred.",
+      "confirmedOn": "2026-10-05",
+      "evidence": "User said 'understood now create next batch' immediately after Batch 03; treated as explicit confirmation of the latest active batch, Batch 03."
     }
   },
-  "nextAction": "Batch 03 is presented because the user explicitly requested the next batch. Batch 02 and Batch 03 are both awaiting explicit confirmation. If the user says Understood Batch 03, mark only Batch 03 understood unless they also confirm Batch 02. Batch 04 is this keyword and Java memory; do not re-teach constructors as new material.",
+  "nextAction": "Author Batch 04 — this Keyword and Java Memory, preserve exact response, mark it presented awaiting understanding. Batch 02 remains unconfirmed. After Batch 04 confirmation, proceed to Batch 05.",
   "progress": {
     "authored": 3,
-    "understood": 1,
+    "understood": 2,
     "planned": 12
   },
   "continuityFiles": [
@@ -108,7 +111,6 @@
   ],
   "archivePolicy": "Exact original assistant batch texts are immutable, no paraphrasing or rewriting; store complete source including chat-specific UI code; separate status/metadata from archived lesson.",
   "pendingConfirmationBatchIds": [
-    "02",
-    "03"
+    "02"
   ]
 }
