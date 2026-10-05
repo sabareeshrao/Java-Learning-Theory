@@ -5,12 +5,12 @@
 
 ## Current situation — 2026-10-05
 
-- [x] **Batch 01 — Java and the Development Environment:** exact archive saved; explicitly understood.
-- [x] **Batch 02 — Classes and Objects:** exact archive saved; **presented, NOT confirmed understood**.
-- [x] **Batch 03 — Constructors and Constructor Overloading:** exact archive saved; user explicitly said **"understood now create next batch"** after Batch 03, so Batch 03 is marked understood.
-- [x] **Batch 04 — `this` Keyword and Java Memory:** exact archive saved at [batch-04-exact.txt](sessions/session-01/2026-mentor-batches/batch-04-exact.txt); **presented, NOT confirmed understood**.
-- [ ] **Batch 05 — Public Classes vs Public Constructors:** next after explicit Batch 04 confirmation, or if the user explicitly asks for the next batch without confirming.
-- [ ] Batch 06 — All Four Access Modifiers.
+- [x] **Batch 01 — Java and the Development Environment:** understood.
+- [x] **Batch 02 — Classes and Objects:** user explicitly confirmed **Understood Batch 02** on 2026-10-05.
+- [x] **Batch 03 — Constructors and Constructor Overloading:** understood.
+- [x] **Batch 04 — `this` Keyword and Java Memory:** user explicitly confirmed **Understood Batch 04** on 2026-10-05.
+- [x] **Batch 05 — Public Classes vs Public Constructors:** exact archive saved at [batch-05-exact.txt](sessions/session-01/2026-mentor-batches/batch-05-exact.txt); **presented, awaiting understanding**.
+- [ ] **Batch 06 — All Four Access Modifiers:** next after Batch 05 confirmation or explicit next-batch request.
 - [ ] Batch 07 — Four OOP Pillars.
 - [ ] Batch 08 — Abstract Classes and Inheritance.
 - [ ] Batch 09 — Multilevel Inheritance and Concrete Classes.
@@ -21,40 +21,33 @@
 ## Already covered — do not loop
 
 ### Batch 01 — understood
-JDK/JRE/JVM, IntelliJ vs JDK, javac, bytecode, Java 21 orientation.
+JDK/JRE/JVM, IntelliJ, javac, bytecode, Java 21 orientation.
 
-### Batch 02 — presented only
-Class vs object, Employee fields/methods, `new Employee()`, separate object state, null reference, default instance-field values.
+### Batch 02 — understood
+Class vs object, Employee fields and methods, `new`, separate object instances, null reference, default field values.
 
 ### Batch 03 — understood
-Constructor purpose, same-name/no-return-type rule, parameterized constructors, implicit no-argument constructor rule, explicit no-arg constructors, overloading, constructor signatures.
+Constructor purpose, no-return-type rule, implicit no-arg constructor rule, parameterized constructors, overloading and signatures.
 
-### Batch 04 — presented only
-`this` means current object, field shadowing, `this.id = id`, reference vs object, conceptual stack/heap model, two `new` calls create two objects, two references can share one object, null-reference behavior, JVM optimization caveat.
+### Batch 04 — understood
+`this` current object, shadowing, `this.id = id`, references vs objects, stack/heap conceptual model, aliasing, null and JVM optimization caveat.
+
+### Batch 05 — presented only
+Public class vs constructor accessibility, package-private constructor, same-package vs different-package calls, two-gate model, public class does not make all members public, implicit constructor accessibility follows class accessibility.
 
 ## Anti-loop rules
 
-1. Do not reteach Batch 01 or Batch 03 as fresh topics.
-2. Batch 02 and Batch 04 are unresolved until explicitly confirmed.
-3. If user says "next batch" without confirmation, present the next roadmap batch but keep unresolved batches unconfirmed.
-4. Batch 05 should focus narrowly on why **class visibility** and **constructor visibility** are separate, including same-package vs different-package examples. Save the full four-modifier matrix for Batch 06.
-5. Preserve exact lesson archives. Never overwrite them with summaries or revised prose.
-6. Revisions get a new file/version.
-7. Keep this course independent of all other repositories/projects.
-
-## Technical accuracy reminders
-
-- `this` refers to the current object in instance contexts.
-- `this.id = id`: left is current object's field; right is the shadowing parameter.
-- Conceptually, method local state/reference variables are associated with stack frames and objects are generally heap allocated; do not present this as an absolute physical guarantee because JVM optimization may alter allocation.
-- A top-level class can be `public` or package-private, not `private` or `protected`.
-- Constructor access can independently be public/protected/package-private/private.
-- Save full access-modifier table and subclass nuances for Batch 06.
+1. Batches 01–04 are confirmed. Do not reteach them as fresh batches.
+2. Batch 05 remains unconfirmed until the user explicitly says "Understood Batch 05".
+3. Batch 06 should give the full access-control picture: `public`, `protected`, package-private, `private`; explain same class, same package, subclass in another package, and unrelated different-package caller.
+4. Keep top-level-class rules separate from member/constructor rules: top-level classes may be public or package-private; nested classes can use more modifiers.
+5. Preserve all exact archives without rewriting.
+6. Keep this course independent from other projects.
 
 ## Exact next instruction
 
-If the user confirms **Understood Batch 04**, update its status and write **Batch 05 — Public Classes vs Public Constructors**. Start with a class visible from another package but a constructor that is not, using a small Employee example. Include failure output, interview answer, memory trick, and Test Your Understanding.
+On **Understood Batch 05**, mark it understood and write **Batch 06 — All Four Access Modifiers** in the same detailed Day-1 format. Include a clear access table, package/subclass examples, at least one compile-failure scenario, interview answer, memory trick, and Test Your Understanding.
 
-If the user simply asks **next batch**, author Batch 05 but leave Batch 04 unresolved.
+If the user simply asks "next batch" without confirming, author Batch 06 but leave Batch 05 unresolved.
 
-**Continuation phrase:** "Continue Java Learning Theory from GitHub. Read LEARNING_STATE.json and MENTOR_QUEUE.md. Use the 12-batch roadmap, preserve exact archives, and never infer understanding."
+**Continuation phrase:** "Continue Java Learning Theory from GitHub. Read LEARNING_STATE.json and MENTOR_QUEUE.md. Resume the 12-batch roadmap without repeating confirmed batches and preserve exact archives."
