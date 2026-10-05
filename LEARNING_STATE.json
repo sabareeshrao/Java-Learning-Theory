@@ -17,7 +17,8 @@
     "01",
     "02",
     "03",
-    "04"
+    "04",
+    "05"
   ],
   "confirmedUnderstoodBatchIds": [
     "01",
@@ -26,14 +27,15 @@
     "04"
   ],
   "activeBatchId": "05",
-  "activeBatchStatus": "queued_being_authored",
+  "activeBatchStatus": "presented_awaiting_understood",
   "nextBatchAfterConfirmation": "06",
   "nextBatchTopic": "All Four Access Modifiers",
   "exactOriginals": {
     "01": "sessions/session-01/2026-mentor-batches/batch-01-exact.txt",
     "02": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt",
     "03": "sessions/session-01/2026-mentor-batches/batch-03-exact.txt",
-    "04": "sessions/session-01/2026-mentor-batches/batch-04-exact.txt"
+    "04": "sessions/session-01/2026-mentor-batches/batch-04-exact.txt",
+    "05": "sessions/session-01/2026-mentor-batches/batch-05-exact.txt"
   },
   "previousLegacyTrack": {
     "present": false,
@@ -121,11 +123,27 @@
       "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-04-exact.txt",
       "confirmedOn": "2026-10-05",
       "evidence": "User explicitly said 'understood batch 2 and batch 4' on 2026-10-05."
+    },
+    "05": {
+      "title": "Public Classes vs Public Constructors",
+      "status": "presented_awaiting_understood",
+      "transcriptWindow": "17:38–24:55",
+      "topics": [
+        "public class visibility",
+        "constructor accessibility separate from class visibility",
+        "package-private constructor",
+        "same-package vs different-package access",
+        "two-gate model",
+        "public class does not imply public members",
+        "implicit constructor accessibility follows class accessibility"
+      ],
+      "hasTestYourUnderstanding": true,
+      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-05-exact.txt"
     }
   },
-  "nextAction": "Author Batch 05 — Public Classes vs Public Constructors, preserve exact response, then mark it presented awaiting understanding. All Batches 01–04 are now explicitly understood.",
+  "nextAction": "Batch 05 presented and awaiting explicit confirmation. All Batches 01–04 are understood. On Understood Batch 05, mark it understood and write Batch 06 — All Four Access Modifiers.",
   "progress": {
-    "authored": 4,
+    "authored": 5,
     "understood": 4,
     "planned": 12
   },
@@ -136,5 +154,7 @@
     "TRACKER.md"
   ],
   "archivePolicy": "Exact original assistant batch texts are immutable, no paraphrasing or rewriting; store complete source including chat-specific UI code; separate status/metadata from archived lesson.",
-  "pendingConfirmationBatchIds": []
+  "pendingConfirmationBatchIds": [
+    "05"
+  ]
 }
