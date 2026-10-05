@@ -26,12 +26,13 @@
     "02",
     "03",
     "04",
-    "05"
+    "05",
+    "06"
   ],
-  "activeBatchId": "06",
-  "activeBatchStatus": "presented_awaiting_understood",
-  "nextBatchAfterConfirmation": "07",
-  "nextBatchTopic": "The Four Pillars of OOP",
+  "activeBatchId": "07",
+  "activeBatchStatus": "queued_being_authored",
+  "nextBatchAfterConfirmation": "08",
+  "nextBatchTopic": "Abstract Classes and Inheritance",
   "exactOriginals": {
     "01": "sessions/session-01/2026-mentor-batches/batch-01-exact.txt",
     "02": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt",
@@ -50,7 +51,7 @@
     "userTranscript": "Full 61-minute transcript supplied in the conversation; 12-batch topic/time roadmap recorded in ROADMAP_12_BATCHES.md.",
     "legacySourceSnippet": "sessions/session-01/source/batch-01-verbatim.txt; pre-existing first-batch excerpt only"
   },
-  "lastConfirmedBatchId": "05",
+  "lastConfirmedBatchId": "06",
   "learningDetails": {
     "01": {
       "title": "Understanding Java and the Development Environment",
@@ -147,7 +148,7 @@
     },
     "06": {
       "title": "All Four Access Modifiers",
-      "status": "presented_awaiting_understood",
+      "status": "understood_self_reported",
       "transcriptWindow": "24:56–34:37",
       "topics": [
         "public",
@@ -164,13 +165,15 @@
         "protected cross-package nuance"
       ],
       "hasTestYourUnderstanding": true,
-      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-06-exact.txt"
+      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-06-exact.txt",
+      "confirmedOn": "2026-10-05",
+      "evidence": "User explicitly said 'Understood create next batch' immediately after Batch 06."
     }
   },
-  "nextAction": "Batch 06 is presented and awaiting explicit confirmation. Batches 01–05 are understood. On Understood Batch 06, mark it understood and write Batch 07 — The Four Pillars of OOP.",
+  "nextAction": "Author Batch 07 — The Four Pillars of OOP, preserve exact response, then mark it presented awaiting understanding. Batches 01–06 are understood.",
   "progress": {
     "authored": 6,
-    "understood": 5,
+    "understood": 6,
     "planned": 12
   },
   "continuityFiles": [
@@ -180,7 +183,5 @@
     "TRACKER.md"
   ],
   "archivePolicy": "Exact original assistant batch texts are immutable, no paraphrasing or rewriting; store complete source including chat-specific UI code; separate status/metadata from archived lesson.",
-  "pendingConfirmationBatchIds": [
-    "06"
-  ]
+  "pendingConfirmationBatchIds": []
 }
