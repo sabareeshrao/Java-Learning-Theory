@@ -1,0 +1,838 @@
+# 🐼 Batch 06 — All Four Access Modifiers
+
+JAVA CORE · LECTURE 01 · BATCH 06 OF 12 · TRANSCRIPT 24:56–34:37
+
+**Today's interview question: What do `public`, `protected`, package-private, and `private` mean in Java, and how do they change access across classes and packages?**
+
+**Characters:** 🐯 Mentor — a Java developer with five years of practical experience. 🐼 Student — a college graduate who knows basic Java but has never worked in a development team.
+
+**Our goal:** Build the full access-control picture from Batch 05. By the end, you should understand which code can access a field, method, or constructor when it is `public`, `protected`, package-private, or `private`, and why top-level classes follow a different rule.
+
+---
+
+## 🐯 Step 1 — Why do we need access modifiers at all?
+
+**Mentor:** Yesterday we learned that a class can be public while its constructor is not.
+
+Today I want to ask a bigger question.
+
+Should every class in an application be allowed to access every field and method of every other class?
+
+**Student:** Probably not. That sounds dangerous.
+
+**Mentor:** Exactly.
+
+Imagine this class:
+
+```java
+public class Employee {
+
+    public int id;
+    public String name;
+    public int salary;
+}
+```
+
+Now any allowed caller can do this:
+
+```java
+employee.salary = -50000;
+```
+
+**Student:** That's obviously bad.
+
+**Mentor:** Right.
+
+Java gives us **access modifiers** so we can control which code is allowed to access a class member.
+
+The four access levels we'll study are:
+
+```text
+public
+protected
+package-private
+private
+```
+
+**Student:** Package-private isn't written as a keyword, right?
+
+**Mentor:** Correct.
+
+Package-private means **no access modifier is written**.
+
+---
+
+## 🦊 Step 2 — Start with the easiest one: `public`
+
+**Mentor:** Suppose we have:
+
+```java
+package company.model;
+
+public class Employee {
+
+    public void printName() {
+        System.out.println("Employee");
+    }
+}
+```
+
+A different package:
+
+```java
+package company.app;
+
+import company.model.Employee;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Employee e = new Employee();
+        e.printName();
+    }
+}
+```
+
+Will it work?
+
+**Student:** Yes, because the class is public and the method is public.
+
+**Mentor:** Correct.
+
+A public member is the most widely accessible of the four.
+
+For our learning model:
+
+```text
+Same class                      ✅
+Same package                    ✅
+Subclass in another package     ✅
+Unrelated class another package ✅
+```
+
+**Student:** So public basically means "available wherever the containing type itself is accessible."
+
+**Mentor:** Exactly.
+
+---
+
+## 🐨 Step 3 — Now package-private
+
+**Mentor:** Remove `public` from the method:
+
+```java
+package company.model;
+
+public class Employee {
+
+    void printName() {
+        System.out.println("Employee");
+    }
+}
+```
+
+What access does `printName()` have?
+
+**Student:** Package-private.
+
+**Mentor:** Correct.
+
+Now this class is in the same package:
+
+```java
+package company.model;
+
+public class EmployeeService {
+
+    public void test() {
+
+        Employee e = new Employee();
+        e.printName();
+    }
+}
+```
+
+Will it work?
+
+**Student:** Yes, same package.
+
+**Mentor:** Correct.
+
+But this:
+
+```java
+package company.app;
+
+import company.model.Employee;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Employee e = new Employee();
+        e.printName();
+    }
+}
+```
+
+fails because `company.app` is a different package.
+
+Conceptually:
+
+```text
+package-private
+
+Same class                      ✅
+Same package                    ✅
+Subclass in another package     ❌
+Unrelated class another package ❌
+```
+
+**Student:** So package-private creates a package boundary.
+
+**Mentor:** Exactly.
+
+---
+
+## 🐯 Step 4 — `private` is even stricter
+
+**Mentor:** Now:
+
+```java
+package company.model;
+
+public class Employee {
+
+    private int salary;
+
+    private void calculateBonus() {
+        System.out.println("Calculating bonus");
+    }
+}
+```
+
+Can another class in the same package directly access `salary`?
+
+**Student:** Since it's the same package... maybe yes?
+
+**Mentor:** No.
+
+This is the key point:
+
+> `private` means access is restricted to the declaring class itself.
+
+Even this class in the same package cannot directly access the private member:
+
+```java
+package company.model;
+
+public class EmployeeService {
+
+    public void test(Employee employee) {
+
+        employee.salary = 70000; // compile error
+    }
+}
+```
+
+**Student:** So private ignores package friendship completely.
+
+**Mentor:** Exactly.
+
+Our conceptual table becomes:
+
+```text
+private
+
+Same declaring class            ✅
+Another class same package      ❌
+Subclass another package        ❌
+Unrelated another package       ❌
+```
+
+---
+
+## 🦊 Step 5 — Why would private be useful?
+
+**Student:** If private hides the field, how do other classes ever work with salary?
+
+**Mentor:** Through controlled behavior.
+
+For example:
+
+```java
+public class Employee {
+
+    private int salary;
+
+    public void updateSalary(int newSalary) {
+
+        if (newSalary <= 0) {
+            throw new IllegalArgumentException(
+                    "Salary must be positive"
+            );
+        }
+
+        salary = newSalary;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+}
+```
+
+**Student:** So outside code can't directly put any random value into salary.
+
+**Mentor:** Exactly.
+
+This is one reason access control matters.
+
+We'll connect this more formally to **encapsulation** in Batch 07.
+
+For now, remember:
+
+```text
+private data
+    ↓
+controlled public operation
+    ↓
+validation / rules
+```
+
+---
+
+## 🐨 Step 6 — `protected` is the one that confuses people
+
+**Student:** I usually get confused by protected.
+
+**Mentor:** Most beginners do.
+
+Let's start with the simple rule first.
+
+A protected member is accessible:
+
+- inside the same class,
+- from other classes in the same package,
+- and from subclasses in other packages, subject to Java's protected-access rules.
+
+Start here:
+
+```java
+package company.model;
+
+public class Employee {
+
+    protected int salary;
+}
+```
+
+Another class in the same package:
+
+```java
+package company.model;
+
+public class EmployeeService {
+
+    public void test() {
+
+        Employee e = new Employee();
+        e.salary = 50000;
+    }
+}
+```
+
+Will it work?
+
+**Student:** Yes, because protected still allows same-package access.
+
+**Mentor:** Correct.
+
+---
+
+## 🐯 Step 7 — Protected across package boundaries
+
+**Mentor:** Now create a subclass in another package.
+
+```java
+package company.management;
+
+import company.model.Employee;
+
+public class Manager extends Employee {
+
+    public void updateOwnInheritedSalary() {
+
+        salary = 80000;
+    }
+}
+```
+
+Will that compile?
+
+**Student:** Yes, because Manager is a subclass.
+
+**Mentor:** Correct.
+
+The protected member is inherited and accessible to the subclass.
+
+Conceptually:
+
+```text
+company.model.Employee
+        |
+        | protected salary
+        v
+company.management.Manager
+        |
+        └── subclass can access inherited protected member
+```
+
+But there is an important nuance.
+
+---
+
+## 🦁 Step 8 — The protected rule across packages is not "public for subclasses"
+
+**Mentor:** Suppose `Manager` is in another package and we write:
+
+```java
+package company.management;
+
+import company.model.Employee;
+
+public class Manager extends Employee {
+
+    public void test() {
+
+        Employee e = new Employee();
+
+        e.salary = 90000; // problem
+    }
+}
+```
+
+**Student:** Wait. Manager is a subclass. Why would that fail?
+
+**Mentor:** Because across package boundaries, protected access through a subclass has an extra restriction.
+
+The subclass can access the protected member through its **own inherited context**, or through an appropriate subclass-type reference, but it cannot simply use an arbitrary superclass instance as if protected were public.
+
+For a beginner interview, remember the safe mental model:
+
+> Same package: protected behaves much like package access.  
+> Different package: protected is available through inheritance to the subclass, not as general public access to every superclass object.
+
+**Student:** So protected is about inheritance across packages, not "any subclass can touch anything anywhere."
+
+**Mentor:** Exactly.
+
+---
+
+## 🦊 Step 9 — Let's compare all four
+
+**Mentor:** Here's the standard table you should remember.
+
+| Access level | Same class | Same package | Subclass, different package | Unrelated class, different package |
+|---|---:|---:|---:|---:|
+| `public` | ✅ | ✅ | ✅ | ✅ |
+| `protected` | ✅ | ✅ | ✅* | ❌ |
+| package-private | ✅ | ✅ | ❌ | ❌ |
+| `private` | ✅ | ❌ | ❌ | ❌ |
+
+`* protected` across packages follows inheritance-specific access rules, as we just discussed.
+
+**Student:** That's much clearer.
+
+**Mentor:** Good.
+
+Now memorize the order from widest to narrowest:
+
+```text
+public
+   ↓
+protected
+   ↓
+package-private
+   ↓
+private
+```
+
+This is a useful learning order, though protected and package-private differ by *kind* of access, not merely "amount."
+
+---
+
+## 🐨 Step 10 — Can we use all four modifiers on constructors?
+
+**Student:** We were talking about constructors in the transcript. Can constructors use all four access levels?
+
+**Mentor:** Yes.
+
+These are all legal:
+
+```java
+public Employee() {
+}
+```
+
+```java
+protected Employee() {
+}
+```
+
+```java
+Employee() {
+}
+```
+
+```java
+private Employee() {
+}
+```
+
+Each one changes who can invoke that constructor.
+
+**Student:** Why would a constructor be private?
+
+**Mentor:** To prevent arbitrary direct object creation.
+
+For example, a utility class:
+
+```java
+public class MathUtil {
+
+    private MathUtil() {
+    }
+
+    public static int square(int n) {
+        return n * n;
+    }
+}
+```
+
+Now callers cannot do:
+
+```java
+new MathUtil();
+```
+
+**Student:** Because there's no reason to create an object just to call static utility methods.
+
+**Mentor:** Exactly.
+
+Private constructors are also used in patterns that control instance creation, but we'll keep today's focus on access.
+
+---
+
+## 🐯 Step 11 — Can a top-level class be private?
+
+**Student:** Earlier in the transcript, there was an attempt to write:
+
+```java
+private class Employee {
+}
+```
+
+Is that allowed?
+
+**Mentor:** Not for a **top-level class**.
+
+At the top level, Java permits:
+
+```java
+public class Employee {
+}
+```
+
+or:
+
+```java
+class Employee {
+}
+```
+
+The second one is package-private.
+
+But these are not legal for top-level classes:
+
+```java
+private class Employee {
+}
+```
+
+```java
+protected class Employee {
+}
+```
+
+**Student:** But I've seen private classes inside other classes.
+
+**Mentor:** Correct.
+
+A **nested class** can use access modifiers such as private or protected.
+
+The restriction we're discussing applies to top-level classes.
+
+---
+
+## 🦊 Step 12 — Methods, fields, constructors, and classes follow different modifier rules
+
+**Mentor:** Let's separate the categories.
+
+### Top-level class
+
+```text
+public
+package-private
+```
+
+### Fields
+
+```text
+public
+protected
+package-private
+private
+```
+
+### Methods
+
+```text
+public
+protected
+package-private
+private
+```
+
+### Constructors
+
+```text
+public
+protected
+package-private
+private
+```
+
+**Student:** So I shouldn't blindly assume every access modifier can be applied everywhere.
+
+**Mentor:** Exactly.
+
+Java syntax depends on what you're declaring.
+
+---
+
+## 🐨 Step 13 — A practical design example
+
+**Mentor:** Let's design Employee a little better.
+
+```java
+package company.model;
+
+public class Employee {
+
+    private int id;
+    private String name;
+    private int salary;
+
+    public Employee(int id, String name, int salary) {
+        this.id = id;
+        this.name = name;
+        updateSalary(salary);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void updateSalary(int newSalary) {
+
+        if (newSalary <= 0) {
+            throw new IllegalArgumentException(
+                    "Salary must be positive"
+            );
+        }
+
+        salary = newSalary;
+    }
+
+    private void auditInternalChange() {
+        // internal implementation detail
+    }
+}
+```
+
+**Student:** So the class is public because other packages may need the type.
+
+The constructor is public because other packages can create employees.
+
+The fields are private because callers shouldn't change them directly.
+
+And some behavior can also be private if it's only an internal helper.
+
+**Mentor:** Perfect.
+
+Access modifiers let us expose a **usable public surface** while hiding implementation details.
+
+---
+
+## 🦁 Step 14 — Failure scenario: same package vs another package
+
+**Mentor:** Suppose `salary` is package-private:
+
+```java
+package company.model;
+
+public class Employee {
+    int salary;
+}
+```
+
+This works:
+
+```java
+package company.model;
+
+public class PayrollService {
+
+    void update(Employee e) {
+        e.salary = 50000;
+    }
+}
+```
+
+But this fails:
+
+```java
+package company.reporting;
+
+import company.model.Employee;
+
+public class ReportService {
+
+    void read(Employee e) {
+        System.out.println(e.salary);
+    }
+}
+```
+
+**Student:** Because `ReportService` is in another package.
+
+**Mentor:** Exactly.
+
+The compiler protects the boundary for us.
+
+---
+
+## 🐯 Step 15 — Interview trap: protected vs package-private
+
+**Mentor:** Interviewer asks:
+
+> "What is the difference between protected and default access?"
+
+What would you say?
+
+**Student:** Both work inside the same package.
+
+But protected additionally allows subclass access across packages.
+
+Package-private does not.
+
+**Mentor:** Excellent.
+
+That's the core difference.
+
+---
+
+## 🎯 Today's interview-ready answer
+
+**Student:** If an interviewer asks me to explain Java access modifiers, how should I answer?
+
+**Mentor:** You can say:
+
+> Java has four access levels for members: `public`, `protected`, package-private, and `private`.
+>
+> `public` members can be accessed wherever the containing type is accessible.
+>
+> Package-private is used when no access modifier is written, and it allows access only within the same package.
+>
+> `private` restricts access to the declaring class itself.
+>
+> `protected` allows same-package access and also supports access through inheritance from subclasses in other packages, with Java's protected-reference rules.
+>
+> Constructors, methods, and fields can use these access levels. Top-level classes are different: they can be public or package-private, but not private or protected.
+>
+> Access modifiers help control which parts of a class form its public API and which details remain internal.
+
+### 🧠 One-line memory trick
+
+**Public = Everywhere → Protected = Package + Child → Default = Package → Private = Same Class**
+
+### ⭐ Access ladder
+
+```text
+public
+  ↓
+protected
+  ↓
+package-private
+  ↓
+private
+```
+
+---
+
+## 📘 Batch 06 — Test Your Understanding
+
+**🐯 Mentor:** Explain these three situations in your own words:
+
+1. A field has no access modifier. Which classes can access it, and which cannot?
+2. Why can a subclass in another package access an inherited `protected` field, while an unrelated class in that other package cannot?
+3. Why is this illegal as a top-level declaration?
+   ```java
+   private class Employee {
+   }
+   ```
+   while a private constructor inside a public class is legal?
+
+---
+
+## 📊 Lecture 01 — Progress
+
+```text
+Batch 01 — Java Development Environment       ✅ Understood
+Batch 02 — Classes and Objects                ✅ Understood
+Batch 03 — Constructors & Overloading         ✅ Understood
+Batch 04 — this Keyword & Java Memory         ✅ Understood
+Batch 05 — Public Class vs Constructor        ✅ Understood
+Batch 06 — All Four Access Modifiers          🟠 Presented, awaiting understanding
+Batch 07 — Four OOP Pillars                   ⬜ Next
+```
+
+**Batches authored:** 6 / 12  
+**Batches explicitly understood:** 5 / 12
+
+**🐯 Mentor:** Today you learned that access control is not just about `public` versus `private`.
+
+It's a structured decision:
+
+```text
+Who owns this code?
+Who should be allowed to use it?
+Is the caller in the same class?
+Same package?
+A subclass?
+A totally unrelated package?
+```
+
+Next, we'll connect several ideas we've already used—classes, private fields, inheritance, and behavior—to the four major OOP principles:
+
+**Encapsulation, Inheritance, Abstraction, and Polymorphism.**
+
+That's **Batch 07 — The Four Pillars of OOP**.
+
+When you're ready, say **"Understood Batch 06."**
