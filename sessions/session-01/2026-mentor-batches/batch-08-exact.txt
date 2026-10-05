@@ -1,0 +1,692 @@
+# 🐼 Batch 08 — Abstract Classes and Inheritance
+
+JAVA CORE · LECTURE 01 · BATCH 08 OF 12 · TRANSCRIPT 37:23–41:56
+
+**Today's interview question: What is an abstract class in Java, why would a parent class declare methods without implementations, and what must a child class do with them?**
+
+**Characters:** 🐯 Mentor — a Java developer with five years of practical experience. 🐼 Student — a college graduate who knows basic Java but has never worked in a development team.
+
+**Our goal:** Take the abstraction idea from Batch 07 and make it concrete with Java syntax. By the end, you should understand what an abstract class is, what an abstract method is, how inheritance connects the parent and child classes, and why a concrete child must implement inherited abstract methods.
+
+---
+
+## 🐯 Step 1 — A parent class knows WHAT every vehicle must do
+
+**Mentor:** Imagine we're building a simple vehicle system.
+
+We know every vehicle must be able to:
+
+- start,
+- stop,
+- and use some kind of fuel or energy.
+
+But the exact implementation may differ.
+
+A petrol car starts one way.
+
+An electric car may start differently.
+
+A truck may have different fuel behavior.
+
+**Student:** So the parent class knows the common actions, but not necessarily the exact implementation.
+
+**Mentor:** Exactly.
+
+If we try to put one fake implementation into the parent, we may end up lying about behavior.
+
+For example:
+
+```java
+public class Vehicle {
+
+    public void fuel() {
+        System.out.println("Use petrol");
+    }
+}
+```
+
+**Student:** But an electric vehicle doesn't use petrol.
+
+**Mentor:** Correct.
+
+We need a way for the parent to say:
+
+> "Every child must provide this behavior, but I won't decide the implementation here."
+
+That's where abstract methods become useful.
+
+---
+
+## 🦊 Step 2 — Our first abstract class
+
+**Mentor:** Let's define a parent class:
+
+```java
+public abstract class Vehicle {
+
+    public abstract void fuel();
+
+    public abstract void stop();
+}
+```
+
+**Student:** Why is the class marked `abstract`?
+
+**Mentor:** Because this class represents an incomplete/general concept.
+
+It defines behavior that subclasses are expected to complete.
+
+And look at these methods:
+
+```java
+public abstract void fuel();
+public abstract void stop();
+```
+
+They have:
+
+- a method name,
+- a return type,
+- access modifier,
+- and no method body.
+
+**Student:** So an abstract method ends with a semicolon.
+
+**Mentor:** Exactly.
+
+It declares **what operation must exist** without defining **how it works**.
+
+---
+
+## 🐨 Step 3 — Why can't an abstract method have a normal body?
+
+**Student:** What if I write:
+
+```java
+public abstract void fuel() {
+    System.out.println("Fuel");
+}
+```
+
+**Mentor:** That won't compile.
+
+An abstract method is specifically a method declaration with no implementation body.
+
+Conceptually:
+
+```text
+abstract method
+      ↓
+declares a requirement
+      ↓
+subclass supplies implementation
+```
+
+If the parent already has an implementation, then the method doesn't need to be abstract.
+
+---
+
+## 🐯 Step 4 — The child class inherits the requirement
+
+**Mentor:** Now let's create a child:
+
+```java
+public class Car extends Vehicle {
+
+    @Override
+    public void fuel() {
+        System.out.println("Car uses petrol");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Car applies brakes");
+    }
+}
+```
+
+**Student:** So `Car extends Vehicle` means Car inherits from Vehicle.
+
+**Mentor:** Correct.
+
+And because Vehicle declares abstract methods, Car inherits those obligations.
+
+Car must provide implementations if Car itself is going to be a normal concrete class.
+
+---
+
+## 🦊 Step 5 — What does `@Override` mean here?
+
+**Student:** Why are we using `@Override`?
+
+**Mentor:** It tells Java:
+
+> "I intend this method to implement or override a method from a parent type."
+
+For example:
+
+```java
+@Override
+public void fuel() {
+    System.out.println("Car uses petrol");
+}
+```
+
+This helps the compiler catch mistakes.
+
+Suppose you accidentally write:
+
+```java
+@Override
+public void fuels() {
+}
+```
+
+**Student:** That doesn't match `fuel()`.
+
+**Mentor:** Exactly.
+
+The compiler can warn us that we're not actually overriding the expected method.
+
+---
+
+## 🐨 Step 6 — What happens if the child forgets one method?
+
+**Mentor:** Let's deliberately break the code.
+
+```java
+public class Car extends Vehicle {
+
+    @Override
+    public void fuel() {
+        System.out.println("Car uses petrol");
+    }
+}
+```
+
+We implemented `fuel()`, but not `stop()`.
+
+What happens?
+
+**Student:** I guess Java complains because Vehicle said stop must exist.
+
+**Mentor:** Exactly.
+
+You'll get an error similar to:
+
+```text
+Car is not abstract and does not override
+abstract method stop() in Vehicle
+```
+
+This error is extremely useful.
+
+It means:
+
+```text
+Parent promised:
+fuel()
+stop()
+
+Child implemented:
+fuel()
+
+Missing:
+stop()
+```
+
+**Student:** So a concrete child must complete all inherited abstract methods.
+
+**Mentor:** Correct.
+
+---
+
+## 🐯 Step 7 — Or the child can remain abstract
+
+**Student:** What if Car isn't ready to implement everything yet?
+
+**Mentor:** Then Car itself can remain abstract.
+
+```java
+public abstract class Car extends Vehicle {
+
+    @Override
+    public void fuel() {
+        System.out.println("Car uses energy");
+    }
+}
+```
+
+Now Car implements `fuel()` but leaves `stop()` unresolved.
+
+Because Car is still abstract, that's legal.
+
+**Student:** So the responsibility can move further down the inheritance chain.
+
+**Mentor:** Exactly.
+
+We'll explore that much more deeply in Batch 09 with a multilevel hierarchy.
+
+For today, just remember:
+
+> A concrete class must implement all inherited abstract methods.  
+> An abstract class may leave some abstract methods for a later subclass.
+
+---
+
+## 🦊 Step 8 — Can an abstract class contain normal methods too?
+
+**Student:** The transcript made abstract classes sound like they only contain abstract methods.
+
+Is that true?
+
+**Mentor:** No.
+
+An abstract class can contain both:
+
+- abstract methods,
+- and fully implemented methods.
+
+For example:
+
+```java
+public abstract class Vehicle {
+
+    public abstract void fuel();
+
+    public abstract void stop();
+
+    public void showType() {
+        System.out.println("This is a vehicle");
+    }
+}
+```
+
+**Student:** So `showType()` already has a body.
+
+**Mentor:** Correct.
+
+A child can inherit and use it directly.
+
+```java
+Car car = new Car();
+
+car.showType();
+```
+
+**Student:** So abstract doesn't mean "nothing can be implemented."
+
+**Mentor:** Exactly.
+
+It means the class is intentionally incomplete as a concrete type and may contain one or more abstract methods.
+
+---
+
+## 🐨 Step 9 — Can I create an object of an abstract class?
+
+**Student:** Can I do this?
+
+```java
+Vehicle vehicle = new Vehicle();
+```
+
+**Mentor:** No.
+
+You cannot directly instantiate an abstract class.
+
+Why?
+
+Because it may contain behavior that has not been implemented.
+
+Java prevents you from creating an incomplete concrete object.
+
+**Student:** So this is illegal:
+
+```java
+new Vehicle();
+```
+
+**Mentor:** Correct.
+
+But you can use the abstract class as a reference type:
+
+```java
+Vehicle vehicle = new Car();
+```
+
+**Student:** Because the actual object is a concrete Car.
+
+**Mentor:** Exactly.
+
+That also connects back to polymorphism from Batch 07.
+
+---
+
+## 🐯 Step 10 — Abstract class does not mean useless parent
+
+**Student:** If we can't create a Vehicle object directly, why create the class at all?
+
+**Mentor:** Because Vehicle can still define common rules and behavior for its children.
+
+It can say:
+
+```text
+Every Vehicle must:
+fuel()
+stop()
+
+Every Vehicle already knows:
+showType()
+```
+
+Then each child decides the missing implementation.
+
+For example:
+
+```java
+public class ElectricCar extends Vehicle {
+
+    @Override
+    public void fuel() {
+        System.out.println("Electric car charges battery");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Electric car uses braking system");
+    }
+}
+```
+
+**Student:** So the abstract parent gives us a shared contract plus reusable behavior.
+
+**Mentor:** Exactly.
+
+---
+
+## 🦊 Step 11 — Inheritance and abstraction are working together
+
+**Mentor:** Let's connect the two concepts.
+
+### Inheritance
+
+```java
+class Car extends Vehicle
+```
+
+means Car is a specialized Vehicle.
+
+### Abstraction
+
+```java
+public abstract void fuel();
+```
+
+means Vehicle declares what behavior must exist without forcing one generic implementation.
+
+Together:
+
+```text
+Vehicle
+  |
+  | abstract requirements
+  | fuel()
+  | stop()
+  |
+  v
+Car
+  |
+  | provides implementation
+  v
+fuel() + stop()
+```
+
+**Student:** So inheritance gives us the parent-child relationship, while abstraction lets the parent leave selected details incomplete.
+
+**Mentor:** Exactly.
+
+---
+
+## 🐨 Step 12 — A common misconception: abstract class vs interface
+
+**Student:** We used an interface in Batch 07. Is an abstract class the same thing?
+
+**Mentor:** No.
+
+Both can support abstraction, but they are different Java constructs.
+
+For today's level, remember:
+
+```text
+abstract class
+→ can contain instance state
+→ can contain implemented methods
+→ can contain abstract methods
+→ participates in class inheritance
+
+interface
+→ defines a type/contract
+→ classes implement it
+→ has its own language rules and capabilities
+```
+
+We'll avoid a full abstract-class-vs-interface comparison today because this transcript section is specifically about abstract classes and inheritance.
+
+**Student:** So abstraction is the principle; abstract class and interface are two Java tools that can help implement it.
+
+**Mentor:** Exactly.
+
+---
+
+## 🦁 Step 13 — Let's trace one complete example
+
+**Mentor:** Here's the parent:
+
+```java
+public abstract class Vehicle {
+
+    public abstract void fuel();
+
+    public abstract void stop();
+
+    public void showType() {
+        System.out.println("Vehicle");
+    }
+}
+```
+
+Here's the child:
+
+```java
+public class Car extends Vehicle {
+
+    @Override
+    public void fuel() {
+        System.out.println("Car uses petrol");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Car stops using brakes");
+    }
+}
+```
+
+And our main code:
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        Vehicle vehicle = new Car();
+
+        vehicle.showType();
+        vehicle.fuel();
+        vehicle.stop();
+    }
+}
+```
+
+Output:
+
+```text
+Vehicle
+Car uses petrol
+Car stops using brakes
+```
+
+**Student:** That's interesting.
+
+The variable type is Vehicle, but the object is Car.
+
+**Mentor:** Exactly.
+
+The abstract parent defines the common type.
+
+The concrete child provides the actual implementation.
+
+---
+
+## 🐯 Step 14 — Why this is better than one fake implementation
+
+**Mentor:** Imagine we didn't use abstraction and wrote:
+
+```java
+public class Vehicle {
+
+    public void fuel() {
+        System.out.println("Vehicle uses petrol");
+    }
+}
+```
+
+Then ElectricCar inherits that behavior.
+
+**Student:** That would be incorrect.
+
+**Mentor:** Exactly.
+
+The parent shouldn't invent behavior that isn't universally true.
+
+Instead:
+
+```java
+public abstract void fuel();
+```
+
+forces every concrete child to answer the question honestly.
+
+```text
+Car         → petrol
+ElectricCar → battery charging
+Truck       → its own implementation
+```
+
+That's one practical value of abstraction.
+
+---
+
+## 🎯 Today's interview-ready answer
+
+**Student:** If an interviewer asks, "What is an abstract class and abstract method in Java?", how should I answer?
+
+**Mentor:** You can say:
+
+> An abstract class is a class declared with the `abstract` keyword that cannot be instantiated directly.
+>
+> It can contain normal implemented methods, fields, and abstract methods.
+>
+> An abstract method declares a method signature without a body and represents behavior that concrete subclasses must implement.
+>
+> For example, an abstract `Vehicle` class may declare `fuel()` and `stop()` as abstract methods. A concrete `Car` class extending Vehicle must implement those methods.
+>
+> If a subclass does not implement all inherited abstract methods, then that subclass must also be declared abstract.
+>
+> Abstract classes are useful when related subclasses share common behavior or state but some behavior must be supplied differently by each concrete child.
+
+### 🧠 One-line memory trick
+
+**Abstract Parent = Common Rules + Missing Details → Concrete Child = Complete the Missing Details**
+
+### ⭐ Abstract-method chain
+
+```text
+abstract class
+      ↓
+abstract method
+      ↓
+child extends parent
+      ↓
+child implements method
+      ↓
+concrete object can be created
+```
+
+---
+
+## 📘 Batch 08 — Test Your Understanding
+
+**🐯 Mentor:** Explain these three situations in your own words:
+
+1. Why would `Vehicle` declare `fuel()` as abstract instead of giving every vehicle one generic petrol implementation?
+2. Why does this class fail to compile?
+   ```java
+   public class Car extends Vehicle {
+
+       @Override
+       public void fuel() {
+           System.out.println("Petrol");
+       }
+   }
+   ```
+   when `Vehicle` also declares an abstract `stop()` method?
+3. Why is this illegal:
+   ```java
+   Vehicle v = new Vehicle();
+   ```
+   while this can be legal:
+   ```java
+   Vehicle v = new Car();
+   ```
+
+---
+
+## 📊 Lecture 01 — Progress
+
+```text
+Batch 01 — Java Development Environment       ✅ Understood
+Batch 02 — Classes and Objects                ✅ Understood
+Batch 03 — Constructors & Overloading         ✅ Understood
+Batch 04 — this Keyword & Java Memory         ✅ Understood
+Batch 05 — Public Class vs Constructor        ✅ Understood
+Batch 06 — All Four Access Modifiers          ✅ Understood
+Batch 07 — Four OOP Pillars                   ✅ Understood
+Batch 08 — Abstract Classes & Inheritance     🟠 Presented, awaiting understanding
+Batch 09 — Multilevel Inheritance             ⬜ Next
+```
+
+**Batches authored:** 8 / 12  
+**Batches explicitly understood:** 7 / 12
+
+**🐯 Mentor:** The important idea today is:
+
+```text
+Parent knows WHAT must exist
+Child decides HOW it works
+```
+
+Next we'll continue the exact hierarchy from your lecture and build:
+
+**Vehicle → Car → BMW**
+
+Then we'll answer:
+
+- Which class must implement which abstract method?
+- When does a class remain abstract?
+- What exactly is a concrete class?
+- How does multilevel inheritance carry requirements downward?
+
+That's **Batch 09 — Multilevel Inheritance and Concrete Classes**.
+
+When you're ready, say **"Understood Batch 08."**
