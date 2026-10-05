@@ -18,7 +18,8 @@
     "02",
     "03",
     "04",
-    "05"
+    "05",
+    "06"
   ],
   "confirmedUnderstoodBatchIds": [
     "01",
@@ -28,7 +29,7 @@
     "05"
   ],
   "activeBatchId": "06",
-  "activeBatchStatus": "queued_being_authored",
+  "activeBatchStatus": "presented_awaiting_understood",
   "nextBatchAfterConfirmation": "07",
   "nextBatchTopic": "The Four Pillars of OOP",
   "exactOriginals": {
@@ -36,7 +37,8 @@
     "02": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt",
     "03": "sessions/session-01/2026-mentor-batches/batch-03-exact.txt",
     "04": "sessions/session-01/2026-mentor-batches/batch-04-exact.txt",
-    "05": "sessions/session-01/2026-mentor-batches/batch-05-exact.txt"
+    "05": "sessions/session-01/2026-mentor-batches/batch-05-exact.txt",
+    "06": "sessions/session-01/2026-mentor-batches/batch-06-exact.txt"
   },
   "previousLegacyTrack": {
     "present": false,
@@ -142,11 +144,32 @@
       "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-05-exact.txt",
       "confirmedOn": "2026-10-05",
       "evidence": "User explicitly said 'understood create next batch' immediately after Batch 05."
+    },
+    "06": {
+      "title": "All Four Access Modifiers",
+      "status": "presented_awaiting_understood",
+      "transcriptWindow": "24:56–34:37",
+      "topics": [
+        "public",
+        "protected",
+        "package-private",
+        "private",
+        "same class access",
+        "same package access",
+        "subclass access across packages",
+        "unrelated different-package access",
+        "top-level class modifier restrictions",
+        "constructor access modifiers",
+        "private constructor",
+        "protected cross-package nuance"
+      ],
+      "hasTestYourUnderstanding": true,
+      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-06-exact.txt"
     }
   },
-  "nextAction": "Author Batch 06 — All Four Access Modifiers, preserve exact response, then mark it presented awaiting understanding. Batches 01–05 are understood.",
+  "nextAction": "Batch 06 is presented and awaiting explicit confirmation. Batches 01–05 are understood. On Understood Batch 06, mark it understood and write Batch 07 — The Four Pillars of OOP.",
   "progress": {
-    "authored": 5,
+    "authored": 6,
     "understood": 5,
     "planned": 12
   },
@@ -157,5 +180,7 @@
     "TRACKER.md"
   ],
   "archivePolicy": "Exact original assistant batch texts are immutable, no paraphrasing or rewriting; store complete source including chat-specific UI code; separate status/metadata from archived lesson.",
-  "pendingConfirmationBatchIds": []
+  "pendingConfirmationBatchIds": [
+    "06"
+  ]
 }
