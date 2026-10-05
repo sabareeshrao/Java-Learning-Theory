@@ -10,7 +10,7 @@
 |---|---|---|---|---|
 | **01** | 00:00–04:05 | Understanding Java and the Development Environment | Why do we need a JDK and an IDE? Understand JDK/JRE/JVM, compilation, Java 21 and IntelliJ. | **✅ Understood — 2026-10-04** |
 | 02 | 04:06–08:15 | Classes and Objects | What exactly happens when we create an Employee object? Class, fields, methods, objects, `new`. | **🟠 Presented — awaiting understanding** |
-| 03 | 08:16–13:28 | Constructors and Constructor Overloading | Why does Java need constructors and can one class have multiple constructors? Implicit no-arg constructor rules. | Queued |
+| 03 | 08:16–13:28 | Constructors and Constructor Overloading | Why does Java need constructors and can one class have multiple constructors? Implicit no-arg constructor rules. | **🟠 Presented — awaiting understanding** |
 | 04 | 13:29–17:37 | The `this` Keyword and Java Memory | Which object are we modifying? `this`, references, stack and heap, per-object state. | Queued |
 | 05 | 17:38–24:55 | Public Classes vs Public Constructors | Why can a class be visible while its constructor is inaccessible? Package boundaries. | Queued |
 | 06 | 24:56–34:37 | All Four Access Modifiers | What do public, private, protected and package-private permit? | Queued |
@@ -39,4 +39,4 @@ Read [the current course state](LEARNING_STATE.json) and [mentor checklist](MENT
 
 Current exact Batch 01: [full original, unrewritten](sessions/session-01/2026-mentor-batches/batch-01-exact.txt).
 
-**Counts:** 2 / 12 batches authored; **1 / 12 confirmed understood** after explicit user confirmation for Batch 01 on 2026-10-04. Batch 02 is presented but not confirmed. This is not the 1,000-question experience course.
+**Counts:** 3 / 12 batches authored; **1 / 12 confirmed understood**. Batch 02 and Batch 03 are both presented but not confirmed; the user explicitly requested Batch 03 without confirming Batch 02. This is not the 1,000-question experience course.
