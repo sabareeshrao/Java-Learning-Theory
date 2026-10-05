@@ -16,20 +16,22 @@
   "presentedBatchIds": [
     "01",
     "02",
-    "03"
+    "03",
+    "04"
   ],
   "confirmedUnderstoodBatchIds": [
     "01",
     "03"
   ],
   "activeBatchId": "04",
-  "activeBatchStatus": "queued_being_authored",
+  "activeBatchStatus": "presented_awaiting_understood",
   "nextBatchAfterConfirmation": "05",
   "nextBatchTopic": "Public Classes vs Public Constructors",
   "exactOriginals": {
     "01": "sessions/session-01/2026-mentor-batches/batch-01-exact.txt",
     "02": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt",
-    "03": "sessions/session-01/2026-mentor-batches/batch-03-exact.txt"
+    "03": "sessions/session-01/2026-mentor-batches/batch-03-exact.txt",
+    "04": "sessions/session-01/2026-mentor-batches/batch-04-exact.txt"
   },
   "previousLegacyTrack": {
     "present": false,
@@ -95,11 +97,29 @@
       "note": "User explicitly requested 'next batch' without confirming Batch 02. Batch 02 remains presented_awaiting_understood; no completion inferred.",
       "confirmedOn": "2026-10-05",
       "evidence": "User said 'understood now create next batch' immediately after Batch 03; treated as explicit confirmation of the latest active batch, Batch 03."
+    },
+    "04": {
+      "title": "The this Keyword and Java Memory",
+      "status": "presented_awaiting_understood",
+      "transcriptWindow": "13:29–17:37",
+      "topics": [
+        "this refers to current object",
+        "field shadowing",
+        "this.id = id",
+        "stack/heap conceptual model",
+        "reference variable vs object",
+        "separate objects have separate instance state",
+        "two references can point to one object",
+        "null reference",
+        "JVM allocation optimization caveat"
+      ],
+      "hasTestYourUnderstanding": true,
+      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-04-exact.txt"
     }
   },
-  "nextAction": "Author Batch 04 — this Keyword and Java Memory, preserve exact response, mark it presented awaiting understanding. Batch 02 remains unconfirmed. After Batch 04 confirmation, proceed to Batch 05.",
+  "nextAction": "Batch 04 is presented and awaiting explicit confirmation. Batch 02 also remains unconfirmed. If user says Understood Batch 04, mark Batch 04 understood and write Batch 05 — Public Classes vs Public Constructors. Do not infer Batch 02 completion.",
   "progress": {
-    "authored": 3,
+    "authored": 4,
     "understood": 2,
     "planned": 12
   },
@@ -111,6 +131,7 @@
   ],
   "archivePolicy": "Exact original assistant batch texts are immutable, no paraphrasing or rewriting; store complete source including chat-specific UI code; separate status/metadata from archived lesson.",
   "pendingConfirmationBatchIds": [
-    "02"
+    "02",
+    "04"
   ]
 }
