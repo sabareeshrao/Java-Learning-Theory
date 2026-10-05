@@ -2,9 +2,9 @@
 
 **Only active roadmap:** [12-batch lecture roadmap](ROADMAP_12_BATCHES.md).
 
-**Current session:** Lecture 01 · Batch 06 — All Four Access Modifiers (presented).  
-**Progress:** Batches 01–05 are explicitly understood (**5/12**). Batch 06 is presented and awaiting confirmation.  
-**Next roadmap topic:** Batch 07 — The Four Pillars of OOP.
+**Current session:** Lecture 01 · Batch 07 — The Four Pillars of OOP (presented).  
+**Progress:** Batches 01–06 are explicitly understood (**6/12**). Batch 07 is presented and awaiting confirmation.  
+**Next roadmap topic:** Batch 08 — Abstract Classes and Inheritance.
 
 | Batch | Topic | Exact original lesson | Status |
 |---|---|---|---|
@@ -12,9 +12,10 @@
 | **02** | Classes and Objects | [Full original Batch 02](sessions/session-01/2026-mentor-batches/batch-02-exact.txt) | ✅ Understood |
 | **03** | Constructors and Constructor Overloading | [Full original Batch 03](sessions/session-01/2026-mentor-batches/batch-03-exact.txt) | ✅ Understood |
 | **04** | `this` Keyword and Java Memory | [Full original Batch 04](sessions/session-01/2026-mentor-batches/batch-04-exact.txt) | ✅ Understood |
-| **05** | Public Classes vs Public Constructors | [Full original Batch 05](sessions/session-01/2026-mentor-batches/batch-05-exact.txt) | ✅ Understood — 2026-10-05 |
-| **06** | All Four Access Modifiers | [Full original Batch 06](sessions/session-01/2026-mentor-batches/batch-06-exact.txt) | 🟠 Presented, awaiting understanding |
-| 07–12 | See [roadmap](ROADMAP_12_BATCHES.md) | Not yet authored | ⬜ Queued |
+| **05** | Public Classes vs Public Constructors | [Full original Batch 05](sessions/session-01/2026-mentor-batches/batch-05-exact.txt) | ✅ Understood |
+| **06** | All Four Access Modifiers | [Full original Batch 06](sessions/session-01/2026-mentor-batches/batch-06-exact.txt) | ✅ Understood — 2026-10-05 |
+| **07** | The Four Pillars of OOP | [Full original Batch 07](sessions/session-01/2026-mentor-batches/batch-07-exact.txt) | 🟠 Presented, awaiting understanding |
+| 08–12 | See [roadmap](ROADMAP_12_BATCHES.md) | Not yet authored | ⬜ Queued |
 
 **Start here in a new chat:** [LEARNING_STATE.json](LEARNING_STATE.json) → [MENTOR_QUEUE.md](MENTOR_QUEUE.md) → [ROADMAP_12_BATCHES.md](ROADMAP_12_BATCHES.md) → latest exact lesson.
 
