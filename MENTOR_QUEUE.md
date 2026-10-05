@@ -6,12 +6,12 @@
 ## Current situation — 2026-10-05
 
 - [x] **Batch 01 — Java and the Development Environment:** understood.
-- [x] **Batch 02 — Classes and Objects:** user explicitly confirmed **Understood Batch 02** on 2026-10-05.
+- [x] **Batch 02 — Classes and Objects:** understood.
 - [x] **Batch 03 — Constructors and Constructor Overloading:** understood.
-- [x] **Batch 04 — `this` Keyword and Java Memory:** user explicitly confirmed **Understood Batch 04** on 2026-10-05.
-- [x] **Batch 05 — Public Classes vs Public Constructors:** exact archive saved at [batch-05-exact.txt](sessions/session-01/2026-mentor-batches/batch-05-exact.txt); **presented, awaiting understanding**.
-- [ ] **Batch 06 — All Four Access Modifiers:** next after Batch 05 confirmation or explicit next-batch request.
-- [ ] Batch 07 — Four OOP Pillars.
+- [x] **Batch 04 — `this` Keyword and Java Memory:** understood.
+- [x] **Batch 05 — Public Classes vs Public Constructors:** user explicitly confirmed it on 2026-10-05.
+- [x] **Batch 06 — All Four Access Modifiers:** exact archive saved at [batch-06-exact.txt](sessions/session-01/2026-mentor-batches/batch-06-exact.txt); **presented, awaiting understanding**.
+- [ ] **Batch 07 — The Four Pillars of OOP:** next after Batch 06 confirmation or explicit next-batch request.
 - [ ] Batch 08 — Abstract Classes and Inheritance.
 - [ ] Batch 09 — Multilevel Inheritance and Concrete Classes.
 - [ ] Batch 10 — Constructors in Abstract Classes.
@@ -20,34 +20,22 @@
 
 ## Already covered — do not loop
 
-### Batch 01 — understood
-JDK/JRE/JVM, IntelliJ, javac, bytecode, Java 21 orientation.
+### Batches 01–05 — understood
+Environment/JDK/JVM, class/object, constructors, `this` and memory, class vs constructor visibility.
 
-### Batch 02 — understood
-Class vs object, Employee fields and methods, `new`, separate object instances, null reference, default field values.
-
-### Batch 03 — understood
-Constructor purpose, no-return-type rule, implicit no-arg constructor rule, parameterized constructors, overloading and signatures.
-
-### Batch 04 — understood
-`this` current object, shadowing, `this.id = id`, references vs objects, stack/heap conceptual model, aliasing, null and JVM optimization caveat.
-
-### Batch 05 — presented only
-Public class vs constructor accessibility, package-private constructor, same-package vs different-package calls, two-gate model, public class does not make all members public, implicit constructor accessibility follows class accessibility.
+### Batch 06 — presented only
+`public`, `protected`, package-private, `private`; same-class/same-package/subclass/different-package access; top-level class modifier rules; private constructor; protected cross-package nuance.
 
 ## Anti-loop rules
 
-1. Batches 01–04 are confirmed. Do not reteach them as fresh batches.
-2. Batch 05 remains unconfirmed until the user explicitly says "Understood Batch 05".
-3. Batch 06 should give the full access-control picture: `public`, `protected`, package-private, `private`; explain same class, same package, subclass in another package, and unrelated different-package caller.
-4. Keep top-level-class rules separate from member/constructor rules: top-level classes may be public or package-private; nested classes can use more modifiers.
-5. Preserve all exact archives without rewriting.
-6. Keep this course independent from other projects.
+1. Batches 01–05 are confirmed. Do not reteach them as fresh lessons.
+2. Batch 06 remains unresolved until the user explicitly confirms it.
+3. Batch 07 should introduce OOP pillars from a concrete problem and connect only lightly to prior examples: encapsulation, inheritance, abstraction, polymorphism. Do not deep-dive abstract classes yet because Batch 08 owns that topic.
+4. Preserve exact archives. Revisions go into new versioned files, not overwrites.
+5. Keep this course independent from other repositories and experience trackers.
 
 ## Exact next instruction
 
-On **Understood Batch 05**, mark it understood and write **Batch 06 — All Four Access Modifiers** in the same detailed Day-1 format. Include a clear access table, package/subclass examples, at least one compile-failure scenario, interview answer, memory trick, and Test Your Understanding.
+On **Understood Batch 06**, mark it understood and write **Batch 07 — The Four Pillars of OOP** in the same detailed mentor–student format. Include a simple practical scenario, one small example per pillar, one failure/misuse comparison, interview answer, memory trick, and Test Your Understanding.
 
-If the user simply asks "next batch" without confirming, author Batch 06 but leave Batch 05 unresolved.
-
-**Continuation phrase:** "Continue Java Learning Theory from GitHub. Read LEARNING_STATE.json and MENTOR_QUEUE.md. Resume the 12-batch roadmap without repeating confirmed batches and preserve exact archives."
+**Continuation phrase:** "Continue Java Learning Theory from GitHub. Read LEARNING_STATE.json and MENTOR_QUEUE.md. Resume from the active 12-batch lesson, preserve exact archives, and never repeat confirmed batches."
