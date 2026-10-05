@@ -28,12 +28,13 @@
     "03",
     "04",
     "05",
-    "06"
+    "06",
+    "07"
   ],
-  "activeBatchId": "07",
-  "activeBatchStatus": "presented_awaiting_understood",
-  "nextBatchAfterConfirmation": "08",
-  "nextBatchTopic": "Abstract Classes and Inheritance",
+  "activeBatchId": "08",
+  "activeBatchStatus": "queued_being_authored",
+  "nextBatchAfterConfirmation": "09",
+  "nextBatchTopic": "Multilevel Inheritance and Concrete Classes",
   "exactOriginals": {
     "01": "sessions/session-01/2026-mentor-batches/batch-01-exact.txt",
     "02": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt",
@@ -53,7 +54,7 @@
     "userTranscript": "Full 61-minute transcript supplied in the conversation; 12-batch topic/time roadmap recorded in ROADMAP_12_BATCHES.md.",
     "legacySourceSnippet": "sessions/session-01/source/batch-01-verbatim.txt; pre-existing first-batch excerpt only"
   },
-  "lastConfirmedBatchId": "06",
+  "lastConfirmedBatchId": "07",
   "learningDetails": {
     "01": {
       "title": "Understanding Java and the Development Environment",
@@ -173,7 +174,7 @@
     },
     "07": {
       "title": "The Four Pillars of OOP",
-      "status": "presented_awaiting_understood",
+      "status": "understood_self_reported",
       "transcriptWindow": "34:38–37:22",
       "topics": [
         "encapsulation",
@@ -189,13 +190,15 @@
         "bad inheritance example"
       ],
       "hasTestYourUnderstanding": true,
-      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-07-exact.txt"
+      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-07-exact.txt",
+      "confirmedOn": "2026-10-05",
+      "evidence": "User explicitly said 'Understood create next batch' immediately after Batch 07."
     }
   },
-  "nextAction": "Batch 07 is presented and awaiting explicit confirmation. Batches 01–06 are understood. On Understood Batch 07, mark it understood and write Batch 08 — Abstract Classes and Inheritance.",
+  "nextAction": "Author Batch 08 — Abstract Classes and Inheritance, preserve exact response, then mark it presented awaiting understanding. Batches 01–07 are understood.",
   "progress": {
     "authored": 7,
-    "understood": 6,
+    "understood": 7,
     "planned": 12
   },
   "continuityFiles": [
@@ -205,7 +208,5 @@
     "TRACKER.md"
   ],
   "archivePolicy": "Exact original assistant batch texts are immutable, no paraphrasing or rewriting; store complete source including chat-specific UI code; separate status/metadata from archived lesson.",
-  "pendingConfirmationBatchIds": [
-    "07"
-  ]
+  "pendingConfirmationBatchIds": []
 }
