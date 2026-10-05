@@ -20,7 +20,8 @@
     "04",
     "05",
     "06",
-    "07"
+    "07",
+    "08"
   ],
   "confirmedUnderstoodBatchIds": [
     "01",
@@ -32,7 +33,7 @@
     "07"
   ],
   "activeBatchId": "08",
-  "activeBatchStatus": "queued_being_authored",
+  "activeBatchStatus": "presented_awaiting_understood",
   "nextBatchAfterConfirmation": "09",
   "nextBatchTopic": "Multilevel Inheritance and Concrete Classes",
   "exactOriginals": {
@@ -42,7 +43,8 @@
     "04": "sessions/session-01/2026-mentor-batches/batch-04-exact.txt",
     "05": "sessions/session-01/2026-mentor-batches/batch-05-exact.txt",
     "06": "sessions/session-01/2026-mentor-batches/batch-06-exact.txt",
-    "07": "sessions/session-01/2026-mentor-batches/batch-07-exact.txt"
+    "07": "sessions/session-01/2026-mentor-batches/batch-07-exact.txt",
+    "08": "sessions/session-01/2026-mentor-batches/batch-08-exact.txt"
   },
   "previousLegacyTrack": {
     "present": false,
@@ -193,11 +195,31 @@
       "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-07-exact.txt",
       "confirmedOn": "2026-10-05",
       "evidence": "User explicitly said 'Understood create next batch' immediately after Batch 07."
+    },
+    "08": {
+      "title": "Abstract Classes and Inheritance",
+      "status": "presented_awaiting_understood",
+      "transcriptWindow": "37:23–41:56",
+      "topics": [
+        "abstract class",
+        "abstract method",
+        "no method body",
+        "concrete subclass implementation",
+        "@Override",
+        "compile failure when abstract method missing",
+        "abstract subclass can defer implementation",
+        "abstract class can contain concrete methods",
+        "abstract class cannot be instantiated",
+        "abstract reference to concrete object",
+        "inheritance plus abstraction"
+      ],
+      "hasTestYourUnderstanding": true,
+      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-08-exact.txt"
     }
   },
-  "nextAction": "Author Batch 08 — Abstract Classes and Inheritance, preserve exact response, then mark it presented awaiting understanding. Batches 01–07 are understood.",
+  "nextAction": "Batch 08 is presented and awaiting explicit confirmation. Batches 01–07 are understood. On Understood Batch 08, mark it understood and write Batch 09 — Multilevel Inheritance and Concrete Classes.",
   "progress": {
-    "authored": 7,
+    "authored": 8,
     "understood": 7,
     "planned": 12
   },
@@ -208,5 +230,7 @@
     "TRACKER.md"
   ],
   "archivePolicy": "Exact original assistant batch texts are immutable, no paraphrasing or rewriting; store complete source including chat-specific UI code; separate status/metadata from archived lesson.",
-  "pendingConfirmationBatchIds": []
+  "pendingConfirmationBatchIds": [
+    "08"
+  ]
 }
