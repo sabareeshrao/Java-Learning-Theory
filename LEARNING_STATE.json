@@ -5,7 +5,7 @@
   "source": "User-provided transcript 00:00–1:01:26",
   "repository": "sabareeshrao/Java-Learning-Theory",
   "branch": "main",
-  "lastUpdated": "2026-10-04",
+  "lastUpdated": "2026-10-05",
   "isIndependentFromOtherProjects": true,
   "teachingPersona": {
     "mentorExperienceYears": 5,
@@ -15,18 +15,20 @@
   "totalPlannedBatches": 12,
   "presentedBatchIds": [
     "01",
-    "02"
+    "02",
+    "03"
   ],
   "confirmedUnderstoodBatchIds": [
     "01"
   ],
-  "activeBatchId": "02",
+  "activeBatchId": "03",
   "activeBatchStatus": "presented_awaiting_understood",
-  "nextBatchAfterConfirmation": "03",
-  "nextBatchTopic": "Constructors and Constructor Overloading",
+  "nextBatchAfterConfirmation": "04",
+  "nextBatchTopic": "The this Keyword and Java Memory",
   "exactOriginals": {
     "01": "sessions/session-01/2026-mentor-batches/batch-01-exact.txt",
-    "02": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt"
+    "02": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt",
+    "03": "sessions/session-01/2026-mentor-batches/batch-03-exact.txt"
   },
   "previousLegacyTrack": {
     "present": false,
@@ -72,11 +74,29 @@
       ],
       "hasTestYourUnderstanding": true,
       "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-02-exact.txt"
+    },
+    "03": {
+      "title": "Constructors and Constructor Overloading",
+      "status": "presented_awaiting_understood",
+      "transcriptWindow": "08:16–13:28",
+      "topics": [
+        "constructor purpose",
+        "constructor naming and no return type",
+        "parameterized constructor",
+        "implicit no-argument constructor rule",
+        "constructor overloading",
+        "matching constructor signatures",
+        "partial initialization choices",
+        "constructor compile failure when no matching signature exists"
+      ],
+      "hasTestYourUnderstanding": true,
+      "exactVerbatimPath": "sessions/session-01/2026-mentor-batches/batch-03-exact.txt",
+      "note": "User explicitly requested 'next batch' without confirming Batch 02. Batch 02 remains presented_awaiting_understood; no completion inferred."
     }
   },
-  "nextAction": "Wait for explicit Understood Batch 02. Then mark it understood and write full Batch 03 — Constructors and Constructor Overloading; preserve new answer verbatim in new archive, update tracker and anti-repeat queue. No legacy 11-batch track.",
+  "nextAction": "Batch 03 is presented because the user explicitly requested the next batch. Batch 02 and Batch 03 are both awaiting explicit confirmation. If the user says Understood Batch 03, mark only Batch 03 understood unless they also confirm Batch 02. Batch 04 is this keyword and Java memory; do not re-teach constructors as new material.",
   "progress": {
-    "authored": 2,
+    "authored": 3,
     "understood": 1,
     "planned": 12
   },
@@ -86,5 +106,9 @@
     "ROADMAP_12_BATCHES.md",
     "TRACKER.md"
   ],
-  "archivePolicy": "Exact original assistant batch texts are immutable, no paraphrasing or rewriting; store complete source including chat-specific UI code; separate status/metadata from archived lesson."
+  "archivePolicy": "Exact original assistant batch texts are immutable, no paraphrasing or rewriting; store complete source including chat-specific UI code; separate status/metadata from archived lesson.",
+  "pendingConfirmationBatchIds": [
+    "02",
+    "03"
+  ]
 }
