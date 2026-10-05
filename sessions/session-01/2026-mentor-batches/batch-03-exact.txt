@@ -1,0 +1,606 @@
+# 🐼 Batch 03 — Constructors and Constructor Overloading
+
+JAVA CORE · LECTURE 01 · BATCH 03 OF 12 · TRANSCRIPT 08:16–13:28
+
+**Today's interview question: Why do we need constructors in Java, what happens when we don't write one, and how can one class have multiple constructors?**
+
+**Characters:** 🐯 Mentor — a Java developer with five years of practical experience. 🐼 Student — a college graduate who knows basic Java but has never worked in a development team.
+
+**Our goal:** Take the `Employee` objects from Batch 02 and improve how they are created. By the end, you should understand why constructors exist, what Java's implicit no-argument constructor really means, what a parameterized constructor does, and how constructor overloading works.
+
+---
+
+## 🐯 Step 1 — Our Employee object has a small design problem
+
+**Mentor:** Yesterday we created an employee like this:
+
+```java
+Employee e1 = new Employee();
+
+e1.id = 101;
+e1.name = "Anu";
+e1.salary = 40000;
+```
+
+Does that work?
+
+**Student:** Yes. We create the object first and then assign the values.
+
+**Mentor:** Correct. Now imagine another developer writes:
+
+```java
+Employee e2 = new Employee();
+
+e2.id = 102;
+e2.name = "Ravi";
+
+// Forgot salary
+```
+
+What kind of employee object do we now have?
+
+**Student:** An incomplete one. The salary would still have its default value.
+
+**Mentor:** Exactly.
+
+The object can exist before we finish giving it the information we intended.
+
+Let's imagine we create hundreds of employees this way:
+
+```text
+Create object
+    ↓
+Remember to set id
+    ↓
+Remember to set name
+    ↓
+Remember to set salary
+    ↓
+Hope nothing was forgotten
+```
+
+**Student:** That doesn't look very safe.
+
+**Mentor:** Right. We need a way to provide important starting values **when the object is created**.
+
+That is one major reason constructors are useful.
+
+---
+
+## 🦊 Step 2 — What exactly is a constructor?
+
+**Mentor:** Let's change `Employee.java`.
+
+```java
+public class Employee {
+
+    int id;
+    String name;
+    int salary;
+
+    Employee(int empId, String empName, int empSalary) {
+        id = empId;
+        name = empName;
+        salary = empSalary;
+    }
+}
+```
+
+**Student:** That looks like a method.
+
+**Mentor:** It looks similar, but notice two important differences.
+
+First, the constructor has the **same name as the class**:
+
+```text
+Class name       → Employee
+Constructor name → Employee
+```
+
+Second, there is **no return type**.
+
+A normal method might look like:
+
+```java
+void printDetails() {
+    // behavior
+}
+```
+
+But the constructor is:
+
+```java
+Employee(int empId, String empName, int empSalary) {
+    // initialization
+}
+```
+
+**Student:** So I should not write `void Employee(...)`?
+
+**Mentor:** Correct.
+
+If you add a return type, Java treats it as a method, not a constructor.
+
+---
+
+## 🐨 Step 3 — Creating an object with the constructor
+
+**Mentor:** Now we can create Anu in one line:
+
+```java
+Employee e1 = new Employee(101, "Anu", 40000);
+```
+
+And Ravi:
+
+```java
+Employee e2 = new Employee(102, "Ravi", 55000);
+```
+
+**Student:** So what happens to those three values?
+
+**Mentor:** Follow the call:
+
+```text
+new Employee(101, "Anu", 40000)
+             │      │       │
+             ▼      ▼       ▼
+          empId  empName  empSalary
+             │      │       │
+             ▼      ▼       ▼
+             id    name    salary
+```
+
+Inside our constructor:
+
+```java
+Employee(int empId, String empName, int empSalary) {
+    id = empId;
+    name = empName;
+    salary = empSalary;
+}
+```
+
+The incoming values are assigned to the fields of the newly created object.
+
+**Student:** So the object starts its life already containing the values we wanted.
+
+**Mentor:** Exactly.
+
+Instead of:
+
+```text
+Create empty-ish object
+        ↓
+Assign values later
+```
+
+we can do:
+
+```text
+Create object
+    +
+Provide starting values
+        ↓
+Initialized Employee object
+```
+
+---
+
+## 🐯 Step 4 — What was happening before we wrote a constructor?
+
+**Student:** But in Batch 02 we never wrote any constructor, and this worked:
+
+```java
+Employee e1 = new Employee();
+```
+
+Where did `Employee()` come from?
+
+**Mentor:** Excellent question.
+
+If a class declares **no constructors at all**, the Java compiler provides an **implicit no-argument constructor**.
+
+For example:
+
+```java
+public class Employee {
+    int id;
+    String name;
+    int salary;
+}
+```
+
+Because we declared no constructor, Java allows:
+
+```java
+Employee e1 = new Employee();
+```
+
+For our learning purpose, you can imagine the compiler providing something conceptually similar to:
+
+```java
+Employee() {
+}
+```
+
+**Student:** So Java always gives every class that constructor?
+
+**Mentor:** No. This is an important interview rule.
+
+> Java provides the implicit no-argument constructor **only when you have declared no constructor yourself**.
+
+The moment we declare this:
+
+```java
+Employee(int empId, String empName, int empSalary) {
+    id = empId;
+    name = empName;
+    salary = empSalary;
+}
+```
+
+Java does **not** also secretly give us another `Employee()`.
+
+**Student:** That's different from what many beginners assume.
+
+**Mentor:** Yes, and it's worth remembering carefully.
+
+---
+
+## 🦁 Step 5 — Let's deliberately cause the constructor error
+
+**Mentor:** Suppose our class contains only this constructor:
+
+```java
+public class Employee {
+
+    int id;
+    String name;
+    int salary;
+
+    Employee(int empId, String empName, int empSalary) {
+        id = empId;
+        name = empName;
+        salary = empSalary;
+    }
+}
+```
+
+Then we try:
+
+```java
+Employee e1 = new Employee();
+```
+
+What do you expect?
+
+**Student:** Maybe Java will use the default constructor?
+
+**Mentor:** It will not, because we already declared a constructor.
+
+IntelliJ/compiler will report an error similar to:
+
+```text
+constructor Employee cannot be applied to given types
+
+required: int, String, int
+found:    no arguments
+```
+
+**Student:** So `new Employee()` is asking for a zero-parameter constructor, but none exists.
+
+**Mentor:** Exactly.
+
+Java looks at the arguments supplied to the constructor call and tries to find a matching constructor.
+
+---
+
+## 🦊 Step 6 — What if I want BOTH ways of creating an Employee?
+
+**Student:** What if I still want this to work:
+
+```java
+new Employee();
+```
+
+but I also want:
+
+```java
+new Employee(101, "Anu", 40000);
+```
+
+**Mentor:** Then you explicitly declare both constructors.
+
+```java
+public class Employee {
+
+    int id;
+    String name;
+    int salary;
+
+    Employee() {
+    }
+
+    Employee(int empId, String empName, int empSalary) {
+        id = empId;
+        name = empName;
+        salary = empSalary;
+    }
+}
+```
+
+Now both calls are valid:
+
+```java
+Employee e1 = new Employee();
+
+Employee e2 =
+        new Employee(102, "Ravi", 55000);
+```
+
+**Student:** So one class can have more than one constructor.
+
+**Mentor:** Correct.
+
+That is called **constructor overloading**.
+
+---
+
+## 🐨 Step 7 — Constructor overloading from ground zero
+
+**Mentor:** Imagine different parts of an application know different amounts of information.
+
+Sometimes we know only the employee ID:
+
+```java
+new Employee(101);
+```
+
+Sometimes we know ID and name:
+
+```java
+new Employee(101, "Anu");
+```
+
+Sometimes we know everything:
+
+```java
+new Employee(101, "Anu", 40000);
+```
+
+We can design constructors for those different creation cases.
+
+```java
+public class Employee {
+
+    int id;
+    String name;
+    int salary;
+
+    Employee() {
+    }
+
+    Employee(int empId) {
+        id = empId;
+    }
+
+    Employee(int empId, String empName) {
+        id = empId;
+        name = empName;
+    }
+
+    Employee(int empId, String empName, int empSalary) {
+        id = empId;
+        name = empName;
+        salary = empSalary;
+    }
+}
+```
+
+**Student:** All of them have the same name.
+
+**Mentor:** They must. They're constructors for `Employee`.
+
+What makes them different is their **parameter list**.
+
+```text
+Employee()
+Employee(int)
+Employee(int, String)
+Employee(int, String, int)
+```
+
+Java chooses the matching constructor based on the arguments in the call.
+
+---
+
+## 🐯 Step 8 — Can constructors differ only by parameter names?
+
+**Student:** Could I do this?
+
+```java
+Employee(int id) {
+}
+
+Employee(int salary) {
+}
+```
+
+They have different parameter names.
+
+**Mentor:** Good interview question.
+
+No. Java does not distinguish those two constructor signatures by parameter **name**.
+
+From Java's point of view both are:
+
+```text
+Employee(int)
+```
+
+So the compiler cannot treat them as two different overloads.
+
+**Student:** What needs to change?
+
+**Mentor:** The parameter list must differ in a way Java can distinguish—for example number, types, or order of parameter types.
+
+Valid examples:
+
+```java
+Employee(int empId) {
+}
+
+Employee(int empId, String empName) {
+}
+
+Employee(String empName) {
+}
+```
+
+**Student:** So constructor overloading means same constructor name, different parameter lists.
+
+**Mentor:** Exactly.
+
+---
+
+## 🦊 Step 9 — Does every constructor need every field?
+
+**Student:** In the transcript, there was a question about whether every constructor must receive ID, name, and salary.
+
+Does it?
+
+**Mentor:** No.
+
+You decide what a valid creation path needs.
+
+For example:
+
+```java
+Employee(int empId) {
+    id = empId;
+}
+```
+
+This initializes only the ID.
+
+Or:
+
+```java
+Employee(int empId, String empName) {
+    id = empId;
+    name = empName;
+}
+```
+
+This initializes ID and name.
+
+**Student:** Then salary would keep its default value until something else sets it?
+
+**Mentor:** Yes, for this simple class.
+
+Whether that's a good design is a separate business question.
+
+If every employee must always have a salary, then allowing a constructor that omits salary might create an invalid object.
+
+So constructors are not just syntax. They help us define **how objects are allowed to begin their life**.
+
+---
+
+## 🐨 Step 10 — Where does `this` fit?
+
+**Student:** I've seen constructors written like this:
+
+```java
+Employee(int id, String name, int salary) {
+    this.id = id;
+    this.name = name;
+    this.salary = salary;
+}
+```
+
+Why is `this` used there?
+
+**Mentor:** Great observation.
+
+Today I deliberately used names like `empId` and `empName` so we could first understand constructors without mixing in another concept.
+
+When parameter names and field names are identical, `this` helps Java distinguish the current object's field from the constructor parameter.
+
+But `this` deserves its own lesson because it connects directly to the **current object** and Java memory.
+
+That's exactly what **Batch 04** is about.
+
+For now, just recognize this form:
+
+```java
+this.id = id;
+```
+
+We'll unpack every part of it next time.
+
+---
+
+## 🎯 Today's interview-ready answer
+
+**Student:** If the interviewer asks me, "What is a constructor and what is constructor overloading?", how should I answer?
+
+**Mentor:** You can say:
+
+> A constructor is a special class member used during object creation to initialize a new object.
+>
+> A constructor has the same name as its class and does not have a return type.
+>
+> For example, `new Employee(101, "Anu", 40000)` invokes a matching `Employee` constructor and passes the initial values to it.
+>
+> If a class declares no constructors, Java provides an implicit no-argument constructor. However, once I explicitly declare any constructor, Java does not automatically provide an additional no-argument constructor.
+>
+> A class can declare multiple constructors with different parameter lists. This is constructor overloading. It allows objects to be created using different sets of initial information.
+
+### 🧠 One-line memory trick
+
+**`new` → Constructor Runs → Starting Values Assigned → Object Begins Initialized**
+
+### ⭐ Constructor-overloading memory trick
+
+**Same Class Name + Different Parameter List = Constructor Overloading**
+
+---
+
+## 📘 Batch 03 — Test Your Understanding
+
+**🐯 Mentor:** Don't memorize the code yet. Explain these three situations in your own words:
+
+1. An `Employee` class declares no constructors. Why does `new Employee()` still compile?
+2. You add `Employee(int id, String name)` and then `new Employee()` stops compiling. Why did Java's implicit no-argument constructor disappear?
+3. Why are `Employee(int id)` and `Employee(int salary)` **not** valid overloaded constructors, while `Employee(int id)` and `Employee(String name)` can be?
+
+---
+
+## 📊 Lecture 01 — Progress
+
+```text
+Batch 01 — Java Development Environment      ✅ Understood
+Batch 02 — Classes and Objects               🟠 Presented, not confirmed
+Batch 03 — Constructors & Overloading        🟠 Presented, awaiting understanding
+Batch 04 — this Keyword & Java Memory        ⬜ Next
+```
+
+**Batches authored:** 3 / 12  
+**Batches explicitly understood:** 1 / 12
+
+**🐯 Mentor:** The important idea today is not merely "a constructor has the same name as the class." The useful idea is that a constructor gives us control over an object's starting state.
+
+Next we'll take this line:
+
+```java
+this.id = id;
+```
+
+and answer the question that usually confuses beginners:
+
+**Which `id` belongs to the object, which `id` is the incoming parameter, and where are the object and reference actually stored?**
+
+That's **Batch 04 — The `this` Keyword and Java Memory**.
+
+When Batch 03 makes sense, say **"Understood Batch 03."** Batch 02 will remain separately marked as unconfirmed unless you also confirm it.
